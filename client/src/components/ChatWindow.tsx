@@ -38,7 +38,7 @@ export function ChatWindow({ messages, isStreaming, streamedContent }: ChatWindo
             As-salamu alaykum
           </h2>
           <p className="max-w-md text-muted-foreground">
-            I am your SmartFiqh assistant. Ask me anything about Islamic values, history, or daily life.
+            I am your SahabatFiqh assistant. Ask me anything about Islamic values, history, or daily life.
           </p>
         </div>
       ) : (
@@ -48,13 +48,13 @@ export function ChatWindow({ messages, isStreaming, streamedContent }: ChatWindo
           ))}
 
           {isStreaming && (
-            <MessageBubble 
-              role="assistant" 
-              content={streamedContent || "Thinking..."} 
+            <MessageBubble
+              role="assistant"
+              content={streamedContent || "Thinking..."}
               isThinking={!streamedContent}
             />
           )}
-          
+
           <div ref={scrollRef} className="h-4" />
         </>
       )}
@@ -78,8 +78,8 @@ function MessageBubble({ role, content, isThinking }: { role: string; content: s
 
       <div className={cn(
         "max-w-[85%] md:max-w-[75%] rounded-2xl px-5 py-3.5 text-sm md:text-base leading-relaxed shadow-sm",
-        isUser 
-          ? "bg-primary text-primary-foreground rounded-tr-sm" 
+        isUser
+          ? "bg-primary text-primary-foreground rounded-tr-sm"
           : "bg-white border border-border/60 text-foreground rounded-tl-sm",
         isThinking && "animate-pulse italic opacity-80"
       )}>
@@ -91,14 +91,14 @@ function MessageBubble({ role, content, isThinking }: { role: string; content: s
           </div>
         ) : (
           <div className="prose prose-sm max-w-none dark:prose-invert">
-             <ReactMarkdown 
-               components={{
-                 p: ({children}) => <p className="mb-2 last:mb-0">{children}</p>,
-                 strong: ({children}) => <span className="font-bold text-secondary-foreground">{children}</span>,
-               }}
-             >
-               {content}
-             </ReactMarkdown>
+            <ReactMarkdown
+              components={{
+                p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                strong: ({ children }) => <span className="font-bold text-secondary-foreground">{children}</span>,
+              }}
+            >
+              {content}
+            </ReactMarkdown>
           </div>
         )}
       </div>

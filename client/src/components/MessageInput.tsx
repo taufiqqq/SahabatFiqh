@@ -51,7 +51,7 @@ export function MessageInput({ onSend, onStop, disabled, isStreaming }: MessageI
           className="w-full px-5 py-4 pr-16 resize-none bg-transparent outline-none text-foreground placeholder:text-muted-foreground/70 min-h-[60px] max-h-[150px]"
           rows={1}
         />
-        
+
         <div className="absolute right-3 bottom-3">
           {isStreaming ? (
             <Button
@@ -75,7 +75,7 @@ export function MessageInput({ onSend, onStop, disabled, isStreaming }: MessageI
         </div>
       </form>
       <div className="text-center mt-2 text-[10px] text-muted-foreground/60 select-none">
-        SmartFiqh may make mistakes. Please consult with scholars for fatwas.
+        SahabatFiqh may make mistakes. Please consult with scholars for fatwas.
       </div>
     </div>
   );

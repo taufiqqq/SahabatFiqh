@@ -39,19 +39,19 @@ export function Sidebar() {
     <div className="flex flex-col h-full bg-[#F9F7F0] border-r border-border/50">
       <div className="p-6 border-b border-border/50 bg-white/50 backdrop-blur-sm">
         <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
-          <span className="text-3xl">☪</span> SmartFiqh
+          <span className="text-3xl">☪</span> SahabatFiqh
         </h1>
         <p className="text-xs text-muted-foreground mt-1 font-medium">Islamic AI Assistant</p>
       </div>
 
       <div className="p-4">
-        <Button 
-          onClick={handleCreate} 
+        <Button
+          onClick={handleCreate}
           disabled={createMutation.isPending}
           className="w-full bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all active:scale-[0.98]"
         >
           {createMutation.isPending ? (
-            "Creating..." 
+            "Creating..."
           ) : (
             <>
               <PlusCircle className="mr-2 h-4 w-4" />
@@ -75,20 +75,20 @@ export function Sidebar() {
           </div>
         ) : (
           conversations?.map((conv) => (
-            <Link 
-              key={conv.id} 
+            <Link
+              key={conv.id}
               href={`/chat/${conv.id}`}
               className={cn(
                 "group flex items-center justify-between p-3 rounded-xl transition-all duration-200 border border-transparent",
-                location === `/chat/${conv.id}` 
-                  ? "bg-white border-primary/20 shadow-md shadow-primary/5" 
+                location === `/chat/${conv.id}`
+                  ? "bg-white border-primary/20 shadow-md shadow-primary/5"
                   : "hover:bg-white/60 hover:border-black/5"
               )}
               onClick={() => setIsOpen(false)}
             >
               <div className="flex items-center gap-3 overflow-hidden">
                 <MessageSquare className={cn(
-                  "h-4 w-4 shrink-0", 
+                  "h-4 w-4 shrink-0",
                   location === `/chat/${conv.id}` ? "text-secondary" : "text-muted-foreground"
                 )} />
                 <div className="flex flex-col min-w-0 text-left">

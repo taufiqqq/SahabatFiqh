@@ -8,14 +8,14 @@ async function seed() {
     if (existingConversations.length === 0) {
       console.log("Creating initial conversation...");
       const [conversation] = await db.insert(conversations).values({
-        title: "Welcome to SmartFiqh",
+        title: "Welcome to SahabatFiqh",
       }).returning();
 
       await db.insert(messages).values([
         {
           conversationId: conversation.id,
           role: "assistant",
-          content: "Assalamu Alaikum! I am SmartFiqh, your AI assistant for Islamic knowledge. How can I help you today?",
+          content: "Assalamu Alaikum! I am SahabatFiqh, your AI assistant for Islamic knowledge. How can I help you today?",
         }
       ]);
       console.log("Seeding complete.");

@@ -10,16 +10,16 @@ import { useEffect } from "react";
 export default function Home() {
   const [match, params] = useRoute("/chat/:id");
   const conversationId = match && params?.id ? parseInt(params.id) : 0;
-  
+
   const { data: conversation, isLoading, isError } = useConversation(conversationId);
   const { sendMessage, stopStream, isStreaming, streamedContent } = useChatStream(conversationId);
 
   // Focus management or other side effects could go here
   useEffect(() => {
     if (conversationId) {
-      document.title = conversation?.title ? `${conversation.title} | SmartFiqh` : "SmartFiqh";
+      document.title = conversation?.title ? `${conversation.title} | SahabatFiqh` : "SahabatFiqh";
     } else {
-      document.title = "SmartFiqh - Islamic AI Assistant";
+      document.title = "SahabatFiqh - Islamic AI Assistant";
     }
   }, [conversation, conversationId]);
 
@@ -30,7 +30,7 @@ export default function Home() {
       <main className="flex-1 flex flex-col relative md:ml-72 transition-all duration-300 w-full">
         {/* Header - Mobile only mostly */}
         <header className="md:hidden h-16 border-b border-border/50 bg-white/50 backdrop-blur flex items-center justify-center">
-          <h1 className="text-xl font-bold font-display text-primary">SmartFiqh</h1>
+          <h1 className="text-xl font-bold font-display text-primary">SahabatFiqh</h1>
         </header>
 
         {/* Content Area */}
@@ -41,13 +41,13 @@ export default function Home() {
               <div className="mb-8 relative">
                 <div className="absolute inset-0 bg-secondary/20 blur-3xl rounded-full" />
                 <h1 className="relative text-6xl md:text-8xl font-display font-bold text-primary mb-2">
-                  SmartFiqh
+                  SahabatFiqh
                 </h1>
                 <p className="relative text-xl text-muted-foreground font-light">
                   Faith-Focused Intelligence
                 </p>
               </div>
-              
+
               <div className="grid gap-4 md:grid-cols-2 max-w-2xl w-full">
                 <div className="p-6 bg-white rounded-2xl shadow-sm border border-border/50 hover:border-secondary/50 transition-colors">
                   <h3 className="text-lg font-bold text-primary mb-2">Islamic Knowledge</h3>
@@ -58,7 +58,7 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">A respectful space designed with Islamic etiquette in mind.</p>
                 </div>
               </div>
-              
+
               <p className="mt-12 text-sm text-muted-foreground">
                 Select a conversation from the sidebar to begin.
               </p>
@@ -76,24 +76,24 @@ export default function Home() {
           ) : (
             // Chat Interface
             <div className="flex flex-col h-full relative">
-              <ChatWindow 
-                messages={conversation?.messages || []} 
-                isStreaming={isStreaming} 
+              <ChatWindow
+                messages={conversation?.messages || []}
+                isStreaming={isStreaming}
                 streamedContent={streamedContent}
               />
-              
+
               {/* Input Area */}
               <div className="p-4 md:p-6 pb-6 md:pb-10 w-full z-10 bg-gradient-to-t from-[#F9F7F0] via-[#F9F7F0] to-transparent">
-                <MessageInput 
-                  onSend={sendMessage} 
+                <MessageInput
+                  onSend={sendMessage}
                   onStop={stopStream}
-                  disabled={isStreaming} 
+                  disabled={isStreaming}
                   isStreaming={isStreaming}
                 />
               </div>
             </div>
           )}
-          
+
           {/* Character Overlay - Always visible at bottom left */}
           <CharacterDisplay isTalking={isStreaming} />
         </div>
