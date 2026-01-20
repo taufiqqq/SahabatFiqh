@@ -1,6 +1,7 @@
 import type { Express, Request, Response } from "express";
 import OpenAI from "openai";
 import { chatStorage } from "./storage";
+import { findRelevantDocument, extractPdfText, createPdfContextPrompt } from "./pdfService";
 
 const openai = new OpenAI({
   apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
@@ -75,11 +76,32 @@ export function registerChatRoutes(app: Express): void {
         content: m.content,
       }));
 
-      // TODO: here for initialization
+      // Check if query is relevant to any PDF document
+      const relevanceCheck = await findRelevantDocument(content);
+
+      let systemPrompt = "You are SahabatFiqh, an AI assistant focused on Islamic values. You provide knowledgeable, respectful, and accurate information about Islam, Fiqh, and general topics from an Islamic perspective. Your tone is polite, warm, and wise. You should always prioritize Islamic principles in your advice.";
+
+      // If relevant document found, fetch and extract PDF content
+      if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
+        try {
+          console.log(`📄 Fetching relevant document: ${relevanceCheck.selectedDocument.title}`);
+          console.log(`🔗 URL: ${relevanceCheck.selectedDocument.link}`);
+
+          const pdfContent = await extractPdfText(relevanceCheck.selectedDocument.link);
+          systemPrompt = createPdfContextPrompt(pdfContent, relevanceCheck.selectedDocument.title);
+
+          console.log(`✅ PDF content extracted successfully (${pdfContent.length} characters)`);
+        } catch (pdfError) {
+          console.error("Error processing PDF:", pdfError);
+          // Fall back to regular response if PDF processing fails
+          systemPrompt += `\n\nNote: I found a relevant document titled "${relevanceCheck.selectedDocument.title}" but couldn't access it. I'll answer based on my general knowledge.`;
+        }
+      }
+
       // Add system prompt
       chatMessages.unshift({
         role: "system",
-        content: "You are SahabatFiqh, an AI assistant focused on Islamic values. You provide knowledgeable, respectful, and accurate information about Islam, Fiqh, and general topics from an Islamic perspective. Your tone is polite, warm, and wise. You should always prioritize Islamic principles in your advice.",
+        content: systemPrompt,
       });
 
       // Set up SSE
