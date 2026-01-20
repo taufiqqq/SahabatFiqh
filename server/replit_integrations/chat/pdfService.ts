@@ -97,7 +97,15 @@ export async function extractPdfText(pdfUrl: string): Promise<string> {
     try {
         // Fetch the PDF
         console.log("⬇️ Fetching PDF from URL...");
-        const response = await fetch(pdfUrl);
+        const response = await fetch(pdfUrl, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'application/pdf,application/octet-stream,*/*',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Referer': 'https://www.bnm.gov.my/',
+                'Cache-Control': 'no-cache',
+            }
+        });
         if (!response.ok) {
             console.error("❌ PDF fetch failed:", response.statusText);
             throw new Error(`Failed to fetch PDF: ${response.statusText}`);
