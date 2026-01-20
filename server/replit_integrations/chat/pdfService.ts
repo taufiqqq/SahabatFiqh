@@ -24,6 +24,8 @@ interface RelevanceResult {
 export async function findRelevantDocument(
     userQuery: string
 ): Promise<RelevanceResult> {
+    console.log("\n🔍 [PDF RAG] findRelevantDocument called");
+    console.log("📝 User Query:", userQuery);
     try {
         // Create a list of available documents for the AI to choose from
         const documentList = (scriptData as ScriptDocument[])
@@ -46,17 +48,22 @@ Respond in this exact JSON format:
   "reasoning": "<brief explanation>"
 }`;
 
+        console.log("🤖 Calling OpenAI to analyze relevance...");
         const response = await openai.chat.completions.create({
             model: "gpt-4o-mini",
             messages: [{ role: "user", content: prompt }],
             response_format: { type: "json_object" },
             temperature: 0.3,
         });
+        console.log("✅ OpenAI response received");
 
         const result = JSON.parse(response.choices[0].message.content || "{}");
 
         if (result.isRelevant && result.documentNumber) {
             const selectedDoc = scriptData[result.documentNumber - 1];
+            console.log("✅ RELEVANT DOCUMENT FOUND!");
+            console.log("📄 Document:", selectedDoc.title);
+            console.log("💭 Reasoning:", result.reasoning);
             return {
                 isRelevant: true,
                 selectedDocument: selectedDoc,
@@ -64,6 +71,8 @@ Respond in this exact JSON format:
             };
         }
 
+        console.log("❌ No relevant document found");
+        console.log("💭 Reasoning:", result.reasoning || "Query not related to available documents");
         return {
             isRelevant: false,
             selectedDocument: null,
@@ -83,12 +92,17 @@ Respond in this exact JSON format:
  * Fetches PDF from URL and extracts text content
  */
 export async function extractPdfText(pdfUrl: string): Promise<string> {
+    console.log("\n📥 [PDF RAG] extractPdfText called");
+    console.log("🔗 PDF URL:", pdfUrl);
     try {
         // Fetch the PDF
+        console.log("⬇️ Fetching PDF from URL...");
         const response = await fetch(pdfUrl);
         if (!response.ok) {
+            console.error("❌ PDF fetch failed:", response.statusText);
             throw new Error(`Failed to fetch PDF: ${response.statusText}`);
         }
+        console.log("✅ PDF downloaded successfully");
 
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
@@ -103,9 +117,12 @@ Preserve the structure and formatting as much as possible.
 Include headings, sections, and important details.`;
 
         // For now, we'll use a simpler approach with pdf-parse library
+        console.log("📖 Parsing PDF content...");
         const pdfParseModule = await import("pdf-parse");
         // @ts-ignore - pdf-parse has complex type definitions
         const data = await pdfParseModule.default(buffer);
+        console.log("✅ PDF parsed successfully");
+        console.log("📊 Extracted text length:", data.text.length, "characters");
 
         return data.text;
     } catch (error) {

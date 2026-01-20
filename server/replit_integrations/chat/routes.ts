@@ -62,12 +62,19 @@ export function registerChatRoutes(app: Express): void {
 
   // Send message and get AI response (streaming)
   app.post("/api/conversations/:id/messages", async (req: Request, res: Response) => {
+    console.log("\n" + "=".repeat(80));
+    console.log("💬 [CHAT] New message received");
+    console.log("=".repeat(80));
     try {
       const conversationId = parseInt(req.params.id);
       const { content } = req.body;
 
+      console.log("📍 Conversation ID:", conversationId);
+      console.log("📝 Message content:", content);
+
       // Save user message
       await chatStorage.createMessage(conversationId, "user", content);
+      console.log("✅ User message saved to database");
 
       // Get conversation history for context
       const messages = await chatStorage.getMessagesByConversation(conversationId);
@@ -75,14 +82,17 @@ export function registerChatRoutes(app: Express): void {
         role: m.role as "user" | "assistant" | "system",
         content: m.content,
       }));
+      console.log("📚 Loaded conversation history:", messages.length, "messages");
 
       // Check if query is relevant to any PDF document
+      console.log("\n🔍 Checking for relevant BNM documents...");
       const relevanceCheck = await findRelevantDocument(content);
 
       let systemPrompt = "You are SahabatFiqh, an AI assistant focused on Islamic values. You provide knowledgeable, respectful, and accurate information about Islam, Fiqh, and general topics from an Islamic perspective. Your tone is polite, warm, and wise. You should always prioritize Islamic principles in your advice.";
 
       // If relevant document found, fetch and extract PDF content
       if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
+        console.log("\n🎯 PDF RAG ACTIVATED!");
         try {
           console.log(`📄 Fetching relevant document: ${relevanceCheck.selectedDocument.title}`);
           console.log(`🔗 URL: ${relevanceCheck.selectedDocument.link}`);
@@ -91,11 +101,15 @@ export function registerChatRoutes(app: Express): void {
           systemPrompt = createPdfContextPrompt(pdfContent, relevanceCheck.selectedDocument.title);
 
           console.log(`✅ PDF content extracted successfully (${pdfContent.length} characters)`);
+          console.log("📋 System prompt updated with PDF context");
         } catch (pdfError) {
-          console.error("Error processing PDF:", pdfError);
+          console.error("❌ Error processing PDF:", pdfError);
           // Fall back to regular response if PDF processing fails
           systemPrompt += `\n\nNote: I found a relevant document titled "${relevanceCheck.selectedDocument.title}" but couldn't access it. I'll answer based on my general knowledge.`;
+          console.log("⚠️ Falling back to general knowledge");
         }
+      } else {
+        console.log("ℹ️ No relevant BNM document found - using general knowledge");
       }
 
       // Add system prompt
@@ -110,6 +124,8 @@ export function registerChatRoutes(app: Express): void {
       res.setHeader("Connection", "keep-alive");
 
       // Stream response from OpenAI
+      console.log("\n🚀 Starting OpenAI streaming response...");
+      console.log("🤖 Model: gpt-5.1");
       const stream = await openai.chat.completions.create({
         model: "gpt-5.1",
         messages: chatMessages,
