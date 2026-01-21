@@ -102,7 +102,7 @@ export function registerChatRoutes(app: Express): void {
         const relevanceCheck = await findRelevantDocument(content);
 
         let systemPrompt =
-          "You are SahabatFiqh, an AI assistant focused on Islamic values. You provide knowledgeable, respectful, and accurate information about Islam, Fiqh, and general topics from an Islamic perspective. Your tone is polite, warm, and wise. You should always prioritize Islamic principles in your advice.";
+          "You are SahabatFiqh, an AI assistant focused on Islamic values. You provide knowledgeable, respectful, and accurate information about Islam, Fiqh, and general topics from an Islamic perspective. Your tone is polite, warm, and wise. You should always prioritize Islamic principles in your advice. If you don't know the answer, say you don't know. Do not make up answers. Also dont yap too much, make it concise but not missing any important information.";
 
         // If relevant document found, fetch and extract PDF content
         if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
@@ -166,13 +166,6 @@ export function registerChatRoutes(app: Express): void {
             fullResponse += content;
             res.write(`data: ${JSON.stringify({ content })}\n\n`);
           }
-        }
-
-        // Add PDF Reference if used
-        if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
-          const pdfLink = `\n\n**Reference:** [${relevanceCheck.selectedDocument.title}](${relevanceCheck.selectedDocument.link})`;
-          fullResponse += pdfLink;
-          res.write(`data: ${JSON.stringify({ content: pdfLink })}\n\n`);
         }
 
         // Save assistant message

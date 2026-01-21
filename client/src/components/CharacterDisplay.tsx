@@ -9,18 +9,21 @@ import {
 } from "@/components/ui/select";
 import idleImage from "@assets/generated_images/muslim_cartoon_character_idle.png";
 import talkingImage from "@assets/generated_images/muslim_cartoon_character_talking.png";
-import fiqahIdle from "@assets/generated_images/muslim_female_character_professional.png";
-import fiqahTalking from "@assets/generated_images/muslim_female_character_professional_talking.png";
+import fiqahIdle from "@assets/generated_images/muslim_girl_cartoon_character_idle.png";
+import fiqahTalking from "@assets/generated_images/muslim_girl_cartoon_character_talking.png";
 
 interface CharacterDisplayProps {
   isTalking: boolean;
 }
 
 export function CharacterDisplay({ isTalking }: CharacterDisplayProps) {
-  const [selectedChar, setSelectedChar] = useState<"sahabat" | "fiqah">("sahabat");
+  const [selectedChar, setSelectedChar] = useState<"sahabat" | "fiqah">(
+    "sahabat",
+  );
 
   const currentIdle = selectedChar === "sahabat" ? idleImage : fiqahIdle;
-  const currentTalking = selectedChar === "sahabat" ? talkingImage : fiqahTalking;
+  const currentTalking =
+    selectedChar === "sahabat" ? talkingImage : fiqahTalking;
 
   return (
     <div className="fixed bottom-0 left-0 z-40 md:w-64 md:h-64 w-40 h-40 flex flex-col items-center">
@@ -51,13 +54,13 @@ export function CharacterDisplay({ isTalking }: CharacterDisplayProps) {
           )}
         </AnimatePresence>
       </div>
-      
+
       {/* Dropdown for Character Selection */}
       <div className="absolute -bottom-10 left-4 w-48 pointer-events-auto bg-white/90 backdrop-blur rounded-md shadow-md border border-border p-1">
-         <Select 
-            value={selectedChar} 
-            onValueChange={(val) => setSelectedChar(val as "sahabat" | "fiqah")}
-         >
+        <Select
+          value={selectedChar}
+          onValueChange={(val) => setSelectedChar(val as "sahabat" | "fiqah")}
+        >
           <SelectTrigger className="w-full h-8 text-xs">
             <SelectValue placeholder="Select Character" />
           </SelectTrigger>
