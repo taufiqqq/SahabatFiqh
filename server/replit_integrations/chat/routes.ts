@@ -168,6 +168,13 @@ export function registerChatRoutes(app: Express): void {
           }
         }
 
+        // Add PDF Reference if used
+        if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
+          const pdfLink = `\n\n**Reference:** [${relevanceCheck.selectedDocument.title}](${relevanceCheck.selectedDocument.link})`;
+          fullResponse += pdfLink;
+          res.write(`data: ${JSON.stringify({ content: pdfLink })}\n\n`);
+        }
+
         // Save assistant message
         await chatStorage.createMessage(
           conversationId,

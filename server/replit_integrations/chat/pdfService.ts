@@ -118,17 +118,13 @@ export async function extractPdfText(pdfUrl: string): Promise<string> {
         // Convert PDF to base64 for OpenAI
         const base64Pdf = buffer.toString("base64");
 
-        // Use OpenAI to extract text from PDF
-        // Note: This uses the file upload API
-        const extractionPrompt = `Extract all text content from this PDF document. 
-Preserve the structure and formatting as much as possible. 
-Include headings, sections, and important details.`;
-
         // For now, we'll use a simpler approach with pdf-parse library
         console.log("📖 Parsing PDF content...");
         const pdfParseModule = await import("pdf-parse");
-        // @ts-ignore - pdf-parse has complex type definitions
-        const data = await pdfParseModule.default(buffer);
+        // @ts-ignore
+        const pdfParse = pdfParseModule.default || pdfParseModule;
+        // @ts-ignore
+        const data = await pdfParse(buffer);
         console.log("✅ PDF parsed successfully");
         console.log("📊 Extracted text length:", data.text.length, "characters");
 

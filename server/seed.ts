@@ -15,7 +15,7 @@ async function seed() {
         {
           conversationId: conversation.id,
           role: "assistant",
-          content: "Assalamu Alaikum! I am SahabatFiqh, your AI assistant for Islamic knowledge. How can I help you today?",
+          content: "Assalamu Alaikum! I am Assistant Fiqah, specialized in shariah accounting and audit. How can I help you today?",
         }
       ]);
       console.log("Seeding complete.");
