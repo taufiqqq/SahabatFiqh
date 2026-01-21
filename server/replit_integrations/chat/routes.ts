@@ -1,7 +1,11 @@
 import type { Express, Request, Response } from "express";
 import OpenAI from "openai";
 import { chatStorage } from "./storage";
-import { findRelevantDocument, extractPdfText, createPdfContextPrompt } from "./pdfService";
+import {
+  findRelevantDocument,
+  extractPdfText,
+  createPdfContextPrompt,
+} from "./pdfService";
 
 const openai = new OpenAI({
   apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
@@ -40,7 +44,9 @@ export function registerChatRoutes(app: Express): void {
   app.post("/api/conversations", async (req: Request, res: Response) => {
     try {
       const { title } = req.body;
-      const conversation = await chatStorage.createConversation(title || "New Chat");
+      const conversation = await chatStorage.createConversation(
+        title || "New Chat",
+      );
       res.status(201).json(conversation);
     } catch (error) {
       console.error("Error creating conversation:", error);
@@ -61,103 +67,128 @@ export function registerChatRoutes(app: Express): void {
   });
 
   // Send message and get AI response (streaming)
-  app.post("/api/conversations/:id/messages", async (req: Request, res: Response) => {
-    console.log("\n" + "=".repeat(80));
-    console.log("💬 [CHAT] New message received");
-    console.log("=".repeat(80));
-    try {
-      const conversationId = parseInt(req.params.id);
-      const { content } = req.body;
+  app.post(
+    "/api/conversations/:id/messages",
+    async (req: Request, res: Response) => {
+      console.log("\n" + "=".repeat(80));
+      console.log("💬 [CHAT] New message received");
+      console.log("=".repeat(80));
+      try {
+        const conversationId = parseInt(req.params.id);
+        const { content } = req.body;
 
-      console.log("📍 Conversation ID:", conversationId);
-      console.log("📝 Message content:", content);
+        console.log("📍 Conversation ID:", conversationId);
+        console.log("📝 Message content:", content);
 
-      // Save user message
-      await chatStorage.createMessage(conversationId, "user", content);
-      console.log("✅ User message saved to database");
+        // Save user message
+        await chatStorage.createMessage(conversationId, "user", content);
+        console.log("✅ User message saved to database");
 
-      // Get conversation history for context
-      const messages = await chatStorage.getMessagesByConversation(conversationId);
-      const chatMessages = messages.map((m) => ({
-        role: m.role as "user" | "assistant" | "system",
-        content: m.content,
-      }));
-      console.log("📚 Loaded conversation history:", messages.length, "messages");
+        // Get conversation history for context
+        const messages =
+          await chatStorage.getMessagesByConversation(conversationId);
+        const chatMessages = messages.map((m) => ({
+          role: m.role as "user" | "assistant" | "system",
+          content: m.content,
+        }));
+        console.log(
+          "📚 Loaded conversation history:",
+          messages.length,
+          "messages",
+        );
 
-      // Check if query is relevant to any PDF document
-      console.log("\n🔍 Checking for relevant BNM documents...");
-      const relevanceCheck = await findRelevantDocument(content);
+        // Check if query is relevant to any PDF document
+        console.log("\n🔍 Checking for relevant BNM documents...");
+        const relevanceCheck = await findRelevantDocument(content);
 
-      let systemPrompt = "You are SahabatFiqh, an AI assistant focused on Islamic values. You provide knowledgeable, respectful, and accurate information about Islam, Fiqh, and general topics from an Islamic perspective. Your tone is polite, warm, and wise. You should always prioritize Islamic principles in your advice.";
+        let systemPrompt =
+          "You are SahabatFiqh, an AI assistant focused on Islamic values. You provide knowledgeable, respectful, and accurate information about Islam, Fiqh, and general topics from an Islamic perspective. Your tone is polite, warm, and wise. You should always prioritize Islamic principles in your advice.";
 
-      // If relevant document found, fetch and extract PDF content
-      if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
-        console.log("\n🎯 PDF RAG ACTIVATED!");
-        try {
-          console.log(`📄 Fetching relevant document: ${relevanceCheck.selectedDocument.title}`);
-          console.log(`🔗 URL: ${relevanceCheck.selectedDocument.link}`);
+        // If relevant document found, fetch and extract PDF content
+        if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
+          console.log("\n🎯 PDF RAG ACTIVATED!");
+          try {
+            console.log(
+              `📄 Fetching relevant document: ${relevanceCheck.selectedDocument.title}`,
+            );
+            console.log(`🔗 URL: ${relevanceCheck.selectedDocument.link}`);
 
-          const pdfContent = await extractPdfText(relevanceCheck.selectedDocument.link);
-          systemPrompt = createPdfContextPrompt(pdfContent, relevanceCheck.selectedDocument.title);
+            const pdfContent = await extractPdfText(
+              relevanceCheck.selectedDocument.link,
+            );
+            systemPrompt = createPdfContextPrompt(
+              pdfContent,
+              relevanceCheck.selectedDocument.title,
+            );
 
-          console.log(`✅ PDF content extracted successfully (${pdfContent.length} characters)`);
-          console.log("📋 System prompt updated with PDF context");
-        } catch (pdfError) {
-          console.error("❌ Error processing PDF:", pdfError);
-          // Fall back to regular response if PDF processing fails
-          systemPrompt += `\n\nNote: I found a relevant document titled "${relevanceCheck.selectedDocument.title}" but couldn't access it. I'll answer based on my general knowledge.`;
-          console.log("⚠️ Falling back to general knowledge");
+            console.log(
+              `✅ PDF content extracted successfully (${pdfContent.length} characters)`,
+            );
+            console.log("📋 System prompt updated with PDF context");
+          } catch (pdfError) {
+            console.error("❌ Error processing PDF:", pdfError);
+            // Fall back to regular response if PDF processing fails
+            systemPrompt += `\n\nNote: I found a relevant document titled "${relevanceCheck.selectedDocument.title}" but couldn't access it. I'll answer based on my general knowledge.`;
+            console.log("⚠️ Falling back to general knowledge");
+          }
+        } else {
+          console.log(
+            "ℹ️ No relevant BNM document found - using general knowledge",
+          );
         }
-      } else {
-        console.log("ℹ️ No relevant BNM document found - using general knowledge");
-      }
 
-      // Add system prompt
-      chatMessages.unshift({
-        role: "system",
-        content: systemPrompt,
-      });
+        // Add system prompt
+        chatMessages.unshift({
+          role: "system",
+          content: systemPrompt,
+        });
 
-      // Set up SSE
-      res.setHeader("Content-Type", "text/event-stream");
-      res.setHeader("Cache-Control", "no-cache");
-      res.setHeader("Connection", "keep-alive");
+        // Set up SSE
+        res.setHeader("Content-Type", "text/event-stream");
+        res.setHeader("Cache-Control", "no-cache");
+        res.setHeader("Connection", "keep-alive");
 
-      // Stream response from OpenAI
-      console.log("\n🚀 Starting OpenAI streaming response...");
-      console.log("🤖 Model: gpt-5.1");
-      const stream = await openai.chat.completions.create({
-        model: "gpt-5.1",
-        messages: chatMessages,
-        stream: true,
-        max_completion_tokens: 2048,
-      });
+        // Stream response from OpenAI
+        console.log("\n🚀 Starting OpenAI streaming response...");
+        console.log("🤖 Model: gpt-5.1");
+        const stream = await openai.chat.completions.create({
+          model: "gpt-5.1",
+          messages: chatMessages,
+          stream: true,
+          max_completion_tokens: 1024,
+        });
 
-      let fullResponse = "";
+        let fullResponse = "";
 
-      for await (const chunk of stream) {
-        const content = chunk.choices[0]?.delta?.content || "";
-        if (content) {
-          fullResponse += content;
-          res.write(`data: ${JSON.stringify({ content })}\n\n`);
+        for await (const chunk of stream) {
+          const content = chunk.choices[0]?.delta?.content || "";
+          if (content) {
+            fullResponse += content;
+            res.write(`data: ${JSON.stringify({ content })}\n\n`);
+          }
         }
-      }
 
-      // Save assistant message
-      await chatStorage.createMessage(conversationId, "assistant", fullResponse);
+        // Save assistant message
+        await chatStorage.createMessage(
+          conversationId,
+          "assistant",
+          fullResponse,
+        );
 
-      res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
-      res.end();
-    } catch (error) {
-      console.error("Error sending message:", error);
-      // Check if headers already sent (SSE streaming started)
-      if (res.headersSent) {
-        res.write(`data: ${JSON.stringify({ error: "Failed to send message" })}\n\n`);
+        res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
         res.end();
-      } else {
-        res.status(500).json({ error: "Failed to send message" });
+      } catch (error) {
+        console.error("Error sending message:", error);
+        // Check if headers already sent (SSE streaming started)
+        if (res.headersSent) {
+          res.write(
+            `data: ${JSON.stringify({ error: "Failed to send message" })}\n\n`,
+          );
+          res.end();
+        } else {
+          res.status(500).json({ error: "Failed to send message" });
+        }
       }
-    }
-  });
+    },
+  );
 }
-
