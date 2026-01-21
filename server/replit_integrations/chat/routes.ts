@@ -13,7 +13,6 @@ const openai = new OpenAI({
 });
 
 export function registerChatRoutes(app: Express): void {
-  // Get all conversations
   app.get("/api/conversations", async (req: Request, res: Response) => {
     try {
       const conversations = await chatStorage.getAllConversations();
@@ -24,7 +23,6 @@ export function registerChatRoutes(app: Express): void {
     }
   });
 
-  // Get single conversation with messages
   app.get("/api/conversations/:id", async (req: Request, res: Response) => {
     try {
       const id = parseInt(req.params.id);
@@ -40,12 +38,11 @@ export function registerChatRoutes(app: Express): void {
     }
   });
 
-  // Create new conversation
   app.post("/api/conversations", async (req: Request, res: Response) => {
     try {
       const { title } = req.body;
       const conversation = await chatStorage.createConversation(
-        title || "New Chat",
+        title || "New Discussion",
       );
       res.status(201).json(conversation);
     } catch (error) {
@@ -54,7 +51,6 @@ export function registerChatRoutes(app: Express): void {
     }
   });
 
-  // Delete conversation
   app.delete("/api/conversations/:id", async (req: Request, res: Response) => {
     try {
       const id = parseInt(req.params.id);
@@ -66,91 +62,45 @@ export function registerChatRoutes(app: Express): void {
     }
   });
 
-  // Send message and get AI response (streaming)
   app.post(
     "/api/conversations/:id/messages",
     async (req: Request, res: Response) => {
-      console.log("\n" + "=".repeat(80));
-      console.log("💬 [CHAT] New message received");
-      console.log("=".repeat(80));
       try {
         const conversationId = parseInt(req.params.id);
         const { content } = req.body;
 
-        console.log("📍 Conversation ID:", conversationId);
-        console.log("📝 Message content:", content);
-
-        // Save user message
         await chatStorage.createMessage(conversationId, "user", content);
-        console.log("✅ User message saved to database");
 
-        // Get conversation history for context
-        const messages =
-          await chatStorage.getMessagesByConversation(conversationId);
+        const messages = await chatStorage.getMessagesByConversation(conversationId);
         const chatMessages = messages.map((m) => ({
           role: m.role as "user" | "assistant" | "system",
           content: m.content,
         }));
-        console.log(
-          "📚 Loaded conversation history:",
-          messages.length,
-          "messages",
-        );
 
-        // Check if query is relevant to any PDF document
-        console.log("\n🔍 Checking for relevant BNM documents...");
         const relevanceCheck = await findRelevantDocument(content);
 
         let systemPrompt =
-          "You are SahabatFiqh, an AI assistant focused on Islamic values. You provide knowledgeable, respectful, and accurate information about Islam, Fiqh, and general topics from an Islamic perspective. Your tone is polite, warm, and wise. You should always prioritize Islamic principles in your advice. If you don't know the answer, say you don't know. Do not make up answers. Also dont yap too much, make it concise but not missing any important information.";
+          "You are a helpful AI assistant. You provide knowledgeable, respectful, and accurate information. Your tone is polite and warm. Keep your response concise and structured. Aim for under 800 words to ensure completeness within token limits.";
 
-        // If relevant document found, fetch and extract PDF content
         if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
-          console.log("\n🎯 PDF RAG ACTIVATED!");
           try {
-            console.log(
-              `📄 Fetching relevant document: ${relevanceCheck.selectedDocument.title}`,
-            );
-            console.log(`🔗 URL: ${relevanceCheck.selectedDocument.link}`);
-
-            const pdfContent = await extractPdfText(
-              relevanceCheck.selectedDocument.link,
-            );
-            systemPrompt = createPdfContextPrompt(
-              pdfContent,
-              relevanceCheck.selectedDocument.title,
-            );
-
-            console.log(
-              `✅ PDF content extracted successfully (${pdfContent.length} characters)`,
-            );
-            console.log("📋 System prompt updated with PDF context");
+            const pdfContent = await extractPdfText(relevanceCheck.selectedDocument.link);
+            systemPrompt = createPdfContextPrompt(pdfContent, relevanceCheck.selectedDocument.title);
           } catch (pdfError) {
-            console.error("❌ Error processing PDF:", pdfError);
-            // Fall back to regular response if PDF processing fails
+            console.error("Error processing PDF:", pdfError);
             systemPrompt += `\n\nNote: I found a relevant document titled "${relevanceCheck.selectedDocument.title}" but couldn't access it. I'll answer based on my general knowledge.`;
-            console.log("⚠️ Falling back to general knowledge");
           }
-        } else {
-          console.log(
-            "ℹ️ No relevant BNM document found - using general knowledge",
-          );
         }
 
-        // Add system prompt
         chatMessages.unshift({
           role: "system",
           content: systemPrompt,
         });
 
-        // Set up SSE
         res.setHeader("Content-Type", "text/event-stream");
         res.setHeader("Cache-Control", "no-cache");
         res.setHeader("Connection", "keep-alive");
 
-        // Stream response from OpenAI
-        console.log("\n🚀 Starting OpenAI streaming response...");
-        console.log("🤖 Model: gpt-5.1");
         const stream = await openai.chat.completions.create({
           model: "gpt-5.1",
           messages: chatMessages,
@@ -168,22 +118,29 @@ export function registerChatRoutes(app: Express): void {
           }
         }
 
-        // Save assistant message
+        let pdfData = null;
+        if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
+          pdfData = {
+            title: relevanceCheck.selectedDocument.title,
+            link: relevanceCheck.selectedDocument.link,
+            description: relevanceCheck.reasoning || "Related BNM Policy Document"
+          };
+          res.write(`data: ${JSON.stringify({ pdf: pdfData })}\n\n`);
+        }
+
         await chatStorage.createMessage(
           conversationId,
           "assistant",
           fullResponse,
+          pdfData
         );
 
         res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
         res.end();
       } catch (error) {
         console.error("Error sending message:", error);
-        // Check if headers already sent (SSE streaming started)
         if (res.headersSent) {
-          res.write(
-            `data: ${JSON.stringify({ error: "Failed to send message" })}\n\n`,
-          );
+          res.write(`data: ${JSON.stringify({ error: "Failed to send message" })}\n\n`);
           res.end();
         } else {
           res.status(500).json({ error: "Failed to send message" });

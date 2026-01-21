@@ -24,10 +24,7 @@ interface RelevanceResult {
 export async function findRelevantDocument(
     userQuery: string
 ): Promise<RelevanceResult> {
-    console.log("\n🔍 [PDF RAG] findRelevantDocument called");
-    console.log("📝 User Query:", userQuery);
     try {
-        // Create a list of available documents for the AI to choose from
         const documentList = (scriptData as ScriptDocument[])
             .map((doc, idx) => `${idx + 1}. ${doc.title}`)
             .join("\n");
@@ -48,22 +45,17 @@ Respond in this exact JSON format:
   "reasoning": "<brief explanation>"
 }`;
 
-        console.log("🤖 Calling OpenAI to analyze relevance...");
         const response = await openai.chat.completions.create({
             model: "gpt-4o-mini",
             messages: [{ role: "user", content: prompt }],
             response_format: { type: "json_object" },
             temperature: 0.3,
         });
-        console.log("✅ OpenAI response received");
 
         const result = JSON.parse(response.choices[0].message.content || "{}");
 
         if (result.isRelevant && result.documentNumber) {
             const selectedDoc = scriptData[result.documentNumber - 1];
-            console.log("✅ RELEVANT DOCUMENT FOUND!");
-            console.log("📄 Document:", selectedDoc.title);
-            console.log("💭 Reasoning:", result.reasoning);
             return {
                 isRelevant: true,
                 selectedDocument: selectedDoc,
@@ -71,8 +63,6 @@ Respond in this exact JSON format:
             };
         }
 
-        console.log("❌ No relevant document found");
-        console.log("💭 Reasoning:", result.reasoning || "Query not related to available documents");
         return {
             isRelevant: false,
             selectedDocument: null,
@@ -92,11 +82,7 @@ Respond in this exact JSON format:
  * Fetches PDF from URL and extracts text content
  */
 export async function extractPdfText(pdfUrl: string): Promise<string> {
-    console.log("\n📥 [PDF RAG] extractPdfText called");
-    console.log("🔗 PDF URL:", pdfUrl);
     try {
-        // Fetch the PDF
-        console.log("⬇️ Fetching PDF from URL...");
         const response = await fetch(pdfUrl, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -107,26 +93,16 @@ export async function extractPdfText(pdfUrl: string): Promise<string> {
             }
         });
         if (!response.ok) {
-            console.error("❌ PDF fetch failed:", response.statusText);
             throw new Error(`Failed to fetch PDF: ${response.statusText}`);
         }
-        console.log("✅ PDF downloaded successfully");
 
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
 
-        // Convert PDF to base64 for OpenAI
-        const base64Pdf = buffer.toString("base64");
-
-        // For now, we'll use a simpler approach with pdf-parse library
-        console.log("📖 Parsing PDF content...");
-        const pdfParseModule = await import("pdf-parse");
-        // @ts-ignore
-        const pdfParse = pdfParseModule.default || pdfParseModule;
-        // @ts-ignore
-        const data = await pdfParse(buffer);
-        console.log("✅ PDF parsed successfully");
-        console.log("📊 Extracted text length:", data.text.length, "characters");
+        const pdf = await import("pdf-parse");
+        // Handle common CJS/ESM interop issues with pdf-parse
+        const parse = typeof pdf === 'function' ? pdf : (pdf as any).default || pdf;
+        const data = await parse(buffer);
 
         return data.text;
     } catch (error) {
@@ -142,7 +118,7 @@ export function createPdfContextPrompt(
     pdfContent: string,
     documentTitle: string
 ): string {
-    return `You are SahabatFiqh, an AI assistant focused on Islamic banking and Malaysian financial regulations.
+    return `You are an AI assistant focused on Islamic banking and Malaysian financial regulations.
 
 IMPORTANT CONTEXT:
 The user's question is related to "${documentTitle}". I have retrieved the full document content for you.
@@ -153,6 +129,7 @@ STRICT INSTRUCTIONS:
 3. If the document doesn't contain the answer, clearly state that
 4. Quote relevant sections from the document when applicable
 5. Do not make up information not present in the document
+6. Keep your response concise and structured. Do not exceed 800 words to avoid being cut off.
 
 DOCUMENT CONTENT:
 ${pdfContent.substring(0, 50000)} 

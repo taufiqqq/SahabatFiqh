@@ -5,9 +5,14 @@ import { useState, useRef, useCallback } from "react";
 
 // Types derived from schema
 type Conversation = typeof conversations.$inferSelect;
-type Message = typeof messages.$inferSelect;
+type Message = typeof messages.$inferSelect & {
+  pdf?: {
+    title: string;
+    link: string;
+    description: string;
+  }
+};
 
-// Hooks for Conversations
 export function useConversations() {
   return useQuery({
     queryKey: [api.conversations.list.path],
@@ -64,19 +69,17 @@ export function useDeleteConversation() {
   });
 }
 
-// Hook for SSE Streaming
 export function useChatStream(conversationId: number) {
   const queryClient = useQueryClient();
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamedContent, setStreamedContent] = useState("");
+  const [streamedPdf, setStreamedPdf] = useState<Message['pdf']>(undefined);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const sendMessage = useCallback(async (content: string) => {
     setIsStreaming(true);
     setStreamedContent("");
-    
-    // Optimistically update UI (optional, but good for UX)
-    // We'll rely on the streamedContent state for the "Thinking..." and progressive text
+    setStreamedPdf(undefined);
     
     abortControllerRef.current = new AbortController();
 
@@ -104,23 +107,24 @@ export function useChatStream(conversationId: number) {
         if (done) break;
 
         buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split("\n\n"); // SSE standard separator
-        buffer = lines.pop() || ""; // Keep incomplete line in buffer
+        const lines = buffer.split("\n\n");
+        buffer = lines.pop() || "";
 
         for (const line of lines) {
           if (line.startsWith("data: ")) {
             const dataStr = line.slice(6);
-            if (dataStr === "[DONE]" || (dataStr.startsWith('{') && JSON.parse(dataStr).done)) {
-               // Stream finished
-               continue;
-            }
             try {
               const data = JSON.parse(dataStr);
+              if (data.done) continue;
+              
               if (data.content) {
                 setStreamedContent(prev => prev + data.content);
               }
+              if (data.pdf) {
+                setStreamedPdf(data.pdf);
+              }
             } catch (e) {
-              console.error("Error parsing SSE JSON", e);
+              // Ignore non-JSON
             }
           }
         }
@@ -132,7 +136,7 @@ export function useChatStream(conversationId: number) {
     } finally {
       setIsStreaming(false);
       setStreamedContent("");
-      // Refetch full conversation to sync history
+      setStreamedPdf(undefined);
       queryClient.invalidateQueries({ queryKey: [api.conversations.get.path, conversationId] });
       queryClient.invalidateQueries({ queryKey: [api.conversations.list.path] });
     }
@@ -150,5 +154,6 @@ export function useChatStream(conversationId: number) {
     stopStream,
     isStreaming,
     streamedContent,
+    streamedPdf
   };
 }
