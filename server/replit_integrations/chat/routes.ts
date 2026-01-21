@@ -71,7 +71,8 @@ export function registerChatRoutes(app: Express): void {
 
         await chatStorage.createMessage(conversationId, "user", content);
 
-        const messages = await chatStorage.getMessagesByConversation(conversationId);
+        const messages =
+          await chatStorage.getMessagesByConversation(conversationId);
         const chatMessages = messages.map((m) => ({
           role: m.role as "user" | "assistant" | "system",
           content: m.content,
@@ -84,8 +85,13 @@ export function registerChatRoutes(app: Express): void {
 
         if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
           try {
-            const pdfContent = await extractPdfText(relevanceCheck.selectedDocument.link);
-            systemPrompt = createPdfContextPrompt(pdfContent, relevanceCheck.selectedDocument.title);
+            const pdfContent = await extractPdfText(
+              relevanceCheck.selectedDocument.link,
+            );
+            systemPrompt = createPdfContextPrompt(
+              pdfContent,
+              relevanceCheck.selectedDocument.title,
+            );
           } catch (pdfError) {
             console.error("Error processing PDF:", pdfError);
             systemPrompt += `\n\nNote: I found a relevant document titled "${relevanceCheck.selectedDocument.title}" but couldn't access it. I'll answer based on my general knowledge.`;
@@ -102,7 +108,7 @@ export function registerChatRoutes(app: Express): void {
         res.setHeader("Connection", "keep-alive");
 
         const stream = await openai.chat.completions.create({
-          model: "gpt-5.1",
+          model: "gpt-4o-mini",
           messages: chatMessages,
           stream: true,
           max_completion_tokens: 1024,
@@ -123,7 +129,8 @@ export function registerChatRoutes(app: Express): void {
           pdfData = {
             title: relevanceCheck.selectedDocument.title,
             link: relevanceCheck.selectedDocument.link,
-            description: relevanceCheck.reasoning || "Related BNM Policy Document"
+            description:
+              relevanceCheck.reasoning || "Related BNM Policy Document",
           };
           res.write(`data: ${JSON.stringify({ pdf: pdfData })}\n\n`);
         }
@@ -132,7 +139,7 @@ export function registerChatRoutes(app: Express): void {
           conversationId,
           "assistant",
           fullResponse,
-          pdfData
+          pdfData,
         );
 
         res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
@@ -140,7 +147,9 @@ export function registerChatRoutes(app: Express): void {
       } catch (error) {
         console.error("Error sending message:", error);
         if (res.headersSent) {
-          res.write(`data: ${JSON.stringify({ error: "Failed to send message" })}\n\n`);
+          res.write(
+            `data: ${JSON.stringify({ error: "Failed to send message" })}\n\n`,
+          );
           res.end();
         } else {
           res.status(500).json({ error: "Failed to send message" });
