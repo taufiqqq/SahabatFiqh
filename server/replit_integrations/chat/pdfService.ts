@@ -1,14 +1,15 @@
 import OpenAI from "openai";
-import scriptData from "../../../script.json";
 
 const openai = new OpenAI({
     apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
     baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
 });
 
+const CRAWLER_API_URL = 'https://sahabat-fiqh-crawler-34o7etaj1-taufiqqqs-projects.vercel.app/scrape/bnm?x-vercel-protection-bypass=Jn2rmGmvjnTDCpQ9dlTfepiHN7ozFUoq';
+
 interface ScriptDocument {
     title: string;
-    link: string;
+    url: string;
 }
 
 interface RelevanceResult {
@@ -18,14 +19,40 @@ interface RelevanceResult {
 }
 
 /**
- * Determines if a user query is relevant to any document in script.json
- * and selects the most appropriate document
+ * Fetches the latest document list from the crawler API
+ */
+async function getDocumentList(): Promise<ScriptDocument[]> {
+    try {
+        const response = await fetch(CRAWLER_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        if (!response.ok) throw new Error(`Failed to fetch crawler data: ${response.statusText}`);
+        const result = await response.json();
+        return result.data || [];
+    } catch (error) {
+        console.error("Error fetching document list from API:", error);
+        return [];
+    }
+}
+
+/**
+ * Determines if a user query is relevant to any document in the remote API
  */
 export async function findRelevantDocument(
     userQuery: string
 ): Promise<RelevanceResult> {
     try {
-        const documentList = (scriptData as ScriptDocument[])
+        const documents = await getDocumentList();
+        if (documents.length === 0) {
+            return { isRelevant: false, selectedDocument: null, reasoning: "No documents available from API" };
+        }
+
+        // Limit the number of documents passed to OpenAI to avoid token limits
+        // We'll take the first 100 as a representative sample or we could do a more sophisticated search
+        const docCount = documents.length;
+        const documentList = documents
+            .slice(0, 100)
             .map((doc, idx) => `${idx + 1}. ${doc.title}`)
             .join("\n");
 
@@ -33,7 +60,7 @@ export async function findRelevantDocument(
 
 User Query: "${userQuery}"
 
-Available Documents:
+Available Documents (Showing first 100 out of ${docCount}):
 ${documentList}
 
 Task: Determine if this query is related to ANY of the above documents. If yes, select the MOST relevant document number. If no, respond with "NOT_RELEVANT".
@@ -54,8 +81,8 @@ Respond in this exact JSON format:
 
         const result = JSON.parse(response.choices[0].message.content || "{}");
 
-        if (result.isRelevant && result.documentNumber) {
-            const selectedDoc = scriptData[result.documentNumber - 1];
+        if (result.isRelevant && result.documentNumber && result.documentNumber <= documents.length) {
+            const selectedDoc = documents[result.documentNumber - 1];
             return {
                 isRelevant: true,
                 selectedDocument: selectedDoc,
@@ -100,7 +127,6 @@ export async function extractPdfText(pdfUrl: string): Promise<string> {
         const buffer = Buffer.from(arrayBuffer);
 
         const pdf = await import("pdf-parse");
-        // Handle common CJS/ESM interop issues with pdf-parse
         const parse = typeof pdf === 'function' ? pdf : (pdf as any).default || pdf;
         const data = await parse(buffer);
 

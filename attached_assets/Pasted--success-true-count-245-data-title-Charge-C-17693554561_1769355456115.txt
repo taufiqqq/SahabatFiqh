@@ -1,0 +1,986 @@
+{
+    "success": true,
+    "count": 245,
+    "data": [
+        {
+            "title": "Charge Card and Charge Card-i",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/charge_card_and_charge_card-i_PD.pdf"
+        },
+        {
+            "title": "Feedback statement on Payment Card Requirements",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/payment_card_feedback_statement.pdf"
+        },
+        {
+            "title": "Debit Card and Debit Card-i",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/debit_card_and_debit_card-i_PD.pdf"
+        },
+        {
+            "title": "Feedback statement on Payment Card Requirements",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/payment_card_feedback_statement.pdf"
+        },
+        {
+            "title": "Credit Card and Credit Card-i",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/credit_card_and_credit_card-i_PD.pdf"
+        },
+        {
+            "title": "Feedback statement on Payment Card Requirements",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/payment_card_feedback_statement.pdf"
+        },
+        {
+            "title": "Transfers of business",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Policy_Document_on_Transfers_of_Business.pdf"
+        },
+        {
+            "title": "Frequently Asked Questions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/FAQ_on_Transfers_of_Business.pdf"
+        },
+        {
+            "title": "Basic Banking Services",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Basic_Banking_Services.pdf"
+        },
+        {
+            "title": "Complaints Handling",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Complaints_Handling.pdf"
+        },
+        {
+            "title": "Feedback Statement",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Complaints_Handling_Feedback_Statement.pdf"
+        },
+        {
+            "title": "Climate Risk Management and Scenario Analysis",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Climate+Risk+Management+Scenario+Analysis_17+March+2025.pdf/"
+        },
+        {
+            "title": "Large Exposures Limit",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/ed_Large_Exposures_Limit_Dec2024.pdf"
+        },
+        {
+            "title": "Reporting Template",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Appendix_3_Reporting_Template.xlsx"
+        },
+        {
+            "title": "Credit Risk",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_credit+risk_dec2024.pdf"
+        },
+        {
+            "title": "Basel II - Risk Weighted Assets",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_Capital_Adequacy_Framework_Basel_II_RWA%29_Dec2023.pdf"
+        },
+        {
+            "title": "Feedback Statement",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_Capital_Adequacy_Framework_OR_Feedback+Statement_151223.pdf"
+        },
+        {
+            "title": "Exposures to Central Counterparties",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_Capital_Adequacy_Framework_CCP_151223.pdf"
+        },
+        {
+            "title": "Feedback Statement",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_Capital_Adequacy_Framework_CCP_Feedback_Statement_151223.pdf"
+        },
+        {
+            "title": "Risk-Weighted Assets",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_Capital_Adequacy_Framework_Islamic_Banks_RWA_Dec2023.pdf"
+        },
+        {
+            "title": "Climate Risk Stress Testing Methodology Paper",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/CRST_Methodolgy_paper_V3.0.pdf"
+        },
+        {
+            "title": "BNM CRST Feedback Statement",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/02_bnm_crst_mp_feedback_stmt.pdf"
+        },
+        {
+            "title": "BNM CRST Scenario & MEV Data",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/03_bnm_crst_mp_scenario_mev_data.xlsx"
+        },
+        {
+            "title": "BNM CRST Gross Value Added by Sector",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/04_bnm_crst_mp_gross_value_added_by_sector.xlsx"
+        },
+        {
+            "title": "[Banks] BNM CRST Reporting Template V5.0 (2025)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/%5BBanks%5D_BNM_CRST_Reporting_Template_V5.0_2025.xlsx"
+        },
+        {
+            "title": "[ITO] BNM CRST Reporting Template V3.0 (2025)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/%5BITOs%5D_BNM_CRST_Reporting_Template_V3.0_2025.xlsx"
+        },
+        {
+            "title": "Financial Reporting",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Financial_Reporting.pdf"
+        },
+        {
+            "title": "Financial Reporting for Islamic Banking Institutions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Financial_Reporting_Islamic_Banks.pdf"
+        },
+        {
+            "title": "Malaysia Islamic Overnight Rate (MYOR-i)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd-myor-i.pdf"
+        },
+        {
+            "title": "Wholesale Market Conduct Practices Guidance Document",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/WMC_Guide.pdf"
+        },
+        {
+            "title": "Code of Conduct For Malaysia Wholesale Financial Markets",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_COC_WholesaleFinMkt.pdf"
+        },
+        {
+            "title": "KLIBOR Rate Setting",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_KLIBOR_Rate_Setting.pdf"
+        },
+        {
+            "title": "Malaysia Overnight Rate (MYOR)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_MYOR.pdf"
+        },
+        {
+            "title": "Reference Rate Framework (RRF)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Reference+Rate+Framework.pdf"
+        },
+        {
+            "title": "English",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Consumer+Guide_RRF_EN.pdf"
+        },
+        {
+            "title": "Bahasa Melayu",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Consumer+Guide_RRF_BM.pdf"
+        },
+        {
+            "title": "Recovery Planning",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_Recovery+Planning.pdf"
+        },
+        {
+            "title": "Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Recovery+Planning+Response+to+Feedback+Received.pdf"
+        },
+        {
+            "title": "Recovery Planning Data Templates",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Recovery+Planning+data+templates.xlsx"
+        },
+        {
+            "title": "Climate Change and Principle-based Taxonomy",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Climate+Change+and+Principle-based+Taxonomy.pdf"
+        },
+        {
+            "title": "Operational Risk Integrated Online Network (ORION)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/ORION+PD_2021.pdf"
+        },
+        {
+            "title": "Frequently Asked Questions (FAQ)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Appendix+A+-+ORION+FAQs_2021.pdf"
+        },
+        {
+            "title": "User Guide and Technical Specifications",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Appendix+B+-+ORION+User+Guide+%26+Technical+Specifications_2021.pdf"
+        },
+        {
+            "title": "Licensing Framework for Digital Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20201231_Licensing Framework for Digital Banks.pdf"
+        },
+        {
+            "title": "Standing Facilities",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_standing+facilities_July+2020.pdf"
+        },
+        {
+            "title": "Issuance of Redemption Statement and Release of Original Title of Immovable Property",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Issuance+of+Redemption+Statement+and+Release+of+Original+Title+of+Immovable+Property.pdf/eef8066e-7ba3-5e5f-a27d-f1caf74d6c19?t=1592252475900"
+        },
+        {
+            "title": "Domestic Systemically Important Banks Framework",
+            "url": "https://www.bnm.gov.my/documents/20124/883228/Policy+Document_DSBI_Feb2020.pdf/e9ccf184-8530-a328-21fd-23810edddcd9?t=1587360482884"
+        },
+        {
+            "title": "Frequently Asked Questions",
+            "url": "https://www.bnm.gov.my/documents/20124/883228/FAQs.pdf/90bcfa1d-cc0c-bbc1-5f80-49e061a9dd5a?t=1587360480532"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Response+to+feedback+received_05022020.pdf/e7266fff-32b9-7e1c-65ac-c073b1c23f9c?t=1592251887372"
+        },
+        {
+            "title": "Reporting Template",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Appendix+4a+Reporting+Template.xlsx/0db5b5ba-d3cb-bac7-fae7-2a01997211ef?t=1600338140523"
+        },
+        {
+            "title": "Reporting Interpretations",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Appendix+4b+Reporting+Interpretations.pdf/39d33598-1d50-4ad8-4241-eb9d74e63f91?t=1592251984943"
+        },
+        {
+            "title": "Submission Instructions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Appendix+5+Submission+Instructions.pdf/67916402-40be-49f6-bd5a-172496eb02c4?t=1592252079691"
+        },
+        {
+            "title": "Application Procedures for Acquisition of Interest in Shares and to be a Financial Holding Company",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_030-05+Application+Guide_Dec2019.pdf/b89ba244-e031-4acf-d01e-9529d45a7082?t=1592251332358"
+        },
+        {
+            "title": "Application Procedures for New Licences under Financial Services Act 2013 and Islamic Financial Services Act 2013",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD+030-4_Licensing+Guide_FDI_FSA-IFSA.pdf/3ddc8322-3358-a22c-b751-2d4ab1e33e96?t=1592251348473"
+        },
+        {
+            "title": "Equity Investments",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Equity+Investments+PD.pdf"
+        },
+        {
+            "title": "Equity Investments Reporting Template",
+            "url": "https://www.bnm.gov.my/documents/20124/761679/Equity+Investments+Reporting+Template.xlsx/d41e4549-ecee-3d54-700c-dedba2a59320?t=1578649357281"
+        },
+        {
+            "title": "Holding of Immovable Properties",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_holding+of+immovable+properties_dec2019.pdf/18d313ce-f3cc-f564-9197-7163f786a48c?t=1592251164843"
+        },
+        {
+            "title": "Repurchase Agreement Transactions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_repo_nov2019.pdf/93e40fb2-c6ea-ee2f-d98c-658aaf665276?t=1592250854549"
+        },
+        {
+            "title": "Value-based Intermediation Financing and Investment Impact Assessment Framework - Guidance Document",
+            "url": "https://www.bnm.gov.my/documents/20124/761679/VBIAF_Final+guidance+1.11.2019.pdf/97938f34-3796-216c-14a0-54002c377e3b?t=1590725447991"
+        },
+        {
+            "title": "Feedback Statement - Consultative Document on VBI Financing and Investment Impact Assessment Framework (VBIAF)",
+            "url": "https://www.bnm.gov.my/documents/20124/761679/Feedback+Statement+1.11.2019v2.pdf/f2af3cb6-5306-900b-a71a-d0dc47381597?t=1590725423082"
+        },
+        {
+            "title": "Outsourcing",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Outsourcing_20191023.pdf/115dc006-4220-44ff-e443-7dc6e9a9a2f5?t=1592250636323"
+        },
+        {
+            "title": "Frequently Asked Questions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/FAQ_Outsourcing_20191023.pdf/5a53bbfd-86ca-ea21-edc5-af473ee91cc6?t=1592250688407"
+        },
+        {
+            "title": "Shariah Governance",
+            "url": "https://www.bnm.gov.my/documents/20124/761679/Shariah+Governance+Policy+Document+2019.pdf/19627b28-f7c9-6141-48ab-bcca4dd2b324?t=1590724860400"
+        },
+        {
+            "title": "Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/761679/Response+to+Feedback+Received+Shariah+Governance+PD.pdf/d863c0e7-a8d7-92b7-6e0b-6660edb28378?t=1590724855175"
+        },
+        {
+            "title": "Net Stable Funding Ratio",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Net+Stable+Funding+Ratio+Policy+Document.pdf/8a16b0a0-baa2-6e8f-dec2-ad5624199344?t=1607173082683"
+        },
+        {
+            "title": "Reporting template",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Net+Stable+Funding+Ratio+Reporting+Template.xlsx/1617394f-910e-e512-b5ea-f75e3df78269?t=1607172946328"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/761679/Feedback+Statement_NSFR.pdf/cf68f168-19b2-fa2d-a6aa-7f9ed0a5c193?t=1590722893793"
+        },
+        {
+            "title": "Trade Credit Insurance and Trade Credit Takaful",
+            "url": "https://www.bnm.gov.my/documents/20124/761679/PD+TCIT.pdf/ab98b7ca-a021-861c-579a-aecd1d80909a?t=1582096626012"
+        },
+        {
+            "title": "Tawarruq",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_reissuancetawarruq_dec2018.pdf/bcc4b359-381c-5035-f9f0-3908faebb92a?t=1592249563244"
+        },
+        {
+            "title": "Implementation Guide for Value-based Intermediation",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/VBI+Implementation+Guide_20181002_final+to+FSAv3.pdf/c83b8a63-9cc2-95fa-d677-28791a5db0a6?t=1592249252692"
+        },
+        {
+            "title": "Rahn",
+            "url": "https://www.bnm.gov.my/documents/20124/761682/Rahn+PD.pdf/9ffd306b-c53a-bc56-6be0-bb8471110eba?t=1581923808147"
+        },
+        {
+            "title": "Response to Feedback",
+            "url": "https://www.bnm.gov.my/documents/20124/761682/Rahn+PD+Feedback+Statement.pdf/b96d5db8-226b-22d8-6bd8-c973be17ebfb?t=1581923809454"
+        },
+        {
+            "title": "Bai` al-Sarf (Currency Exchange)",
+            "url": "https://www.bnm.gov.my/documents/20124/761682/PD+Bai+Al-Sarf.pdf/bfba72ed-590e-ced2-13c5-2c49f311e76f?t=1581910099240"
+        },
+        {
+            "title": "Feedback statement",
+            "url": "https://www.bnm.gov.my/documents/20124/761682/Feedback+Statement_Sarf.pdf/6720e4d2-a5dd-94bb-34f8-d3048c40228a?t=1581910098482"
+        },
+        {
+            "title": "Strategy Paper on Value-based Intermediation (VBI)",
+            "url": "https://www.bnm.gov.my/documents/20124/761682/Strategy+Paper+on+VBI.pdf/b299fc38-0728-eca6-40ee-023fc584265e?t=1581907679482"
+        },
+        {
+            "title": "Value-based Intermediation: Feedback Statement",
+            "url": "https://www.bnm.gov.my/documents/20124/761682/Feedback+Statement+VBI.pdf/f6ac8aa8-7c3d-fb6d-e29f-3b83c4dfb49f?t=1581907698228"
+        },
+        {
+            "title": "Employee Screening",
+            "url": "https://www.bnm.gov.my/documents/20124/761682/Employee+Screening+PD.pdf/f91b2fe8-bbb4-03a9-adf6-32d9ac6fe3c5?t=1581903946199"
+        },
+        {
+            "title": "Response to Feedback",
+            "url": "https://www.bnm.gov.my/documents/20124/761682/Employee+Screening+Feedback+Statement.pdf/4cd00c0f-775d-f6e0-4712-c6cf30749b99?t=1581903945514"
+        },
+        {
+            "title": "Reference Template",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Reference+Template.docx/5e315264-4cd7-5549-49a5-91ba3a7dfa9b?t=1592248553149"
+        },
+        {
+            "title": "FAQ - Employee Screening",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/FAQ+-+Employee+Screening.pdf/336b1dab-4727-f9dc-8a6a-9b6441ada6c9?t=1592248647783"
+        },
+        {
+            "title": "Leverage Ratio",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/Leverage+Ratio+Policy+Document+%5B08122017%5D.pdf/1b369e66-7cfb-3890-229f-2b7197203048?t=1581587329820"
+        },
+        {
+            "title": "Attachment 1 - Reporting template",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/LR+Reporting+Template+%2830032018%29.xlsx/42bb325e-da98-4f5d-b0c2-f8b3b7535acc?t=1581587331115"
+        },
+        {
+            "title": "Attachment 2 - Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/Response+to+Feedback+Received+%28LR%29.pdf/753a171f-329c-8940-bc37-a71649141db7?t=1581587329109"
+        },
+        {
+            "title": "Attachment 3 - Frequently asked questions",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/Frequently+Asked+Questions+%28LR%29.pdf/221f3e1f-8d1a-27ef-229f-ddac6fc34c87?t=1581587328532"
+        },
+        {
+            "title": "Principles for a Fair and Effective Financial Market for the Malaysian Financial Market",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Principles+for+a+Fair+and+Effective+Financial+Market+-+Malaysian+Financial+Market.pdf/752f5a8b-fb62-a75d-10c5-a52fea38e39d?t=1592247649240"
+        },
+        {
+            "title": "Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Response+to+feedback+received.pdf/5faf2312-b368-1546-f81a-f935512c0645?t=1592247656203"
+        },
+        {
+            "title": "Stress Testing",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD+029-15+Stress+Testing.pdf/6ed56c02-ee7a-11fb-3d37-54df1518b110?t=1592247459753"
+        },
+        {
+            "title": "Capital Funds",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/Capital+Funds_PD_3+May+2017.pdf/40663273-bae6-36ae-c05a-44ad301d134f?t=1581471941435"
+        },
+        {
+            "title": "Attachment - Frequently Asked Questions (FAQs)",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/faq_capital_funds_20170504.pdf/ff8f51de-f8b3-3fb7-0223-eba302830a25?t=1581471940876"
+        },
+        {
+            "title": "Attachment - Clarification on reserve fund",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/clarification_reserve_fund_20170504.pdf/45408eca-4ef7-074f-ae6e-1b06382b1a69?t=1581471940397"
+        },
+        {
+            "title": "Capital Funds for Islamic Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/Capital+Funds+for+Islamic+Banks_20170504.pdf/6329f475-5733-daa0-aa22-81fd242b3801?t=1581472131050"
+        },
+        {
+            "title": "Attachment - Frequently Asked Questions (FAQs)",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/faq_capital_funds_islamic_20170504.pdf/d2c8b9c4-ea7b-8d77-8443-426a23d61d3c?t=1581472132124"
+        },
+        {
+            "title": "Attachment - Clarification on reserve fund",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/clarification_reserve_fund_20170504.pdf/45408eca-4ef7-074f-ae6e-1b06382b1a69?t=1581471940397"
+        },
+        {
+            "title": "Kafalah **UPDATED 2017/04/14",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD+Kafalah_130417.pdf/70b485d3-92c5-0611-bdf3-9b9d2ef86090?t=1592246946987"
+        },
+        {
+            "title": "Attachment 1: Response to feedback received **UPDATED 2017/04/14",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Feedback+Statement+for+Kafalah_130417.pdf/98c316df-3871-558b-06f0-6e1d943820d6?t=1592247003700"
+        },
+        {
+            "title": "Regulated Short-Selling of Securities in the Wholesale Money Market",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/pd_028_42.pdf/2f4c7ba3-95aa-65b8-096f-ee5e4aab28ce?t=1580974421713"
+        },
+        {
+            "title": "Request for Feedback",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/Request+for+Feedback.docx/452ae2b3-81c6-5199-7854-196f75329b2a?t=1580974422511"
+        },
+        {
+            "title": "Code of Conduct for Malaysia Wholesale Financial Markets ** UPDATED 2020/04/22",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_CoC_22042020.pdf/761af246-0b2e-edb3-c17d-10807c82f093?t=1592246653883"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/Response+to+feedback+received_Final.docx/b59e94bb-30b2-4257-4dfc-5501810da0de?t=1580975211219"
+        },
+        {
+            "title": "Wa'd",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/20170202+-+PD+on+Wa%60d.pdf/6db13262-5299-4c9b-a4ac-96895ca02537?t=1580887370995"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/761688/FS_Wa%27d_Feb2016.pdf/e575db4d-c5e6-e94e-c251-f9e41502bf88?t=1580887370111"
+        },
+        {
+            "title": "Commencement of Commercial Banking Business of China Construction Bank (Malaysia) Berhad",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/CCBM.pdf/838f973d-2115-0aa1-f4b4-259c724e3357?t=1592246530037"
+        },
+        {
+            "title": "Prohibited Business Conduct",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_prohibited+business+conduct_July2016.pdf/60064225-eb90-d2ce-ae50-b7c11b3aa1ab?t=1592246399853"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/fs_prohibited+business+conduct_July2016.pdf/48b14a60-68dc-8fe3-7635-5888ee39baee?t=1592246404850"
+        },
+        {
+            "title": "Liquidity Coverage Ratio",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Liquidity_Coverage_Ratio_20160825.pdf/251e78e9-e8da-5b3e-36be-f77b214288fa?t=1592246139337"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Response+to+Feedback+Received+.pdf/a546b6fd-34ec-519b-3e7a-5f0272915ad2?t=1592246204424"
+        },
+        {
+            "title": "Reporting templates",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/LCR.zip/f15415a4-19e7-4007-cf14-d3b57716e7b0?t=1592246299645"
+        },
+        {
+            "title": "Ijarah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD+Ijarah+28062018_Final.pdf/479fc345-c628-8996-25f0-8d1fe06aa700?t=1592245815724"
+        },
+        {
+            "title": "Shareholder Suitability",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/pd_Shareholder+suitability_Aug2016.pdf/16ced631-8017-d4ab-8a75-8b3727fcb1c9?t=1580443142872"
+        },
+        {
+            "title": "Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/fs_ShareholderSuitability_Aug2016.pdf/43975361-b64a-9908-fad7-ece405ae013f?t=1580443142251"
+        },
+        {
+            "title": "Hibah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Hibah.pdf/8d6ac6f9-9bb5-5780-005b-65a639c36f44?t=1592245213682"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/hibah_feedback.pdf/d8112c66-030c-8839-2a25-10c13cbe049c?t=1592245280364"
+        },
+        {
+            "title": "Qard",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD+Qard_26022018.pdf/795395cd-aeee-d497-109d-e3af19874a44?t=1592245448584"
+        },
+        {
+            "title": "FAQ",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/qard_faq.pdf/6ad65607-489b-de1c-c917-ae7890070a4d?t=1592245214867"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/qard_feedback.pdf/750035b0-4d33-962f-b5cd-0c2b83e0627f?t=1592245341938"
+        },
+        {
+            "title": "Wadiah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Wadiah_PD.pdf/af4d3c8b-8dc5-b54e-b295-0e43836187aa?t=1592245542456"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/wadiah_feedback.pdf/de82d411-8f7a-270b-ebc5-0edb5b3aa048?t=1592245606386"
+        },
+        {
+            "title": "Corporate Governance",
+            "url": "https://www.bnm.gov.my/documents/20124/65319/pd_CorporateGovernance_Aug2016.pdf/b587630a-a1af-3607-c7f5-03086826c021?t=1586927811343"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/fs_corporategovernance_Aug2016.pdf/4c0651ff-e021-865e-26dc-b30afd4b081f?t=1592245113913"
+        },
+        {
+            "title": "Change in terminology \"Private Debt Securities\" to \"Corporate Bond and/or Sukuk",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/change_in_terminology.pdf/13032d97-47ac-cdfc-7f0b-bc265b2c1a4a?t=1580438999941"
+        },
+        {
+            "title": "Wakalah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Wakalah.pdf/fe87974d-190f-0e11-b0e3-9cb7ab96eb02?t=1592244614898"
+        },
+        {
+            "title": "Attachment 1: Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/wakalah_feedback_statement.pdf/4dc42a88-061a-e18a-9322-4d38dfa59394?t=1592244622989"
+        },
+        {
+            "title": "Operational Risk",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/pd_operational+risk_may2016.pdf/c1179a37-07f8-c6b0-6354-bc7216e903a0?t=1580434747718"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/fs_operational+risk_may2016.pdf/9f94ea76-99a2-58db-8e8b-7d47b7a3b794?t=1580434747049"
+        },
+        {
+            "title": "Compliance",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_compliance_Oct2015+%28Reissuance_May2016%29.pdf/6da52ca8-734a-d2fb-e214-093430ea8fb6?t=1592219195301"
+        },
+        {
+            "title": "Response to feedback received - Compliance",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/fs_compliance_Oct2015.pdf/0190eb79-1e67-53b7-3afa-283071eb83f6?t=1592219234812"
+        },
+        {
+            "title": "Manual Rujukan Institusi Kewangan Islam Kepada Majlis Penasihat Shariah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Manual_Rujukan_IKI_kpd_MPS.pdf/d58a8c36-a439-b036-1b9e-0ffe980bb482?t=1592244270923"
+        },
+        {
+            "title": "Istisna'",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Istisna_PD_29122015.pdf/b2da7948-cb8a-40ad-f669-3d55b4e8b26b?t=1592244257525"
+        },
+        {
+            "title": "Regulatory Treatment of BNM Mudarabah Certificate (BMC) for Licensed Banks and Licensed Islamic Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/BMC_Letter.pdf/6675d52a-bb9c-97f2-5b07-8c1c9f88d0b8?t=1592218411899"
+        },
+        {
+            "title": "Requirements for the Conduct of Money Services Business by Banking Institutions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Requirements_for_the_Conduct_of_MSB_by_BIs_v2.pdf/52219870-22eb-d8ee-7209-f893e484a2d6?t=1592218351679"
+        },
+        {
+            "title": "Mudarabah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Mudarabah.pdf/2ea1c2df-b084-1b3b-f640-d7993d1e38ea?t=1592218042807"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Feedback+Statement+for+Mudarabah.pdf/506b4b37-502f-0551-8049-2844e317b061?t=1592218145581"
+        },
+        {
+            "title": "Musyarakah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Musyarakah.pdf/e99baaa9-d7cd-a61f-8d0a-9c9f2521dd4d?t=1592218252160"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Feedback+Statement+for+Musyarakah.pdf/e419a8f3-83ba-92cd-091e-1e5bbd840a11?t=1592218258894"
+        },
+        {
+            "title": "Prohibited Business Conduct **NEW 2016/07/19",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_prohibited_business_conduct_july2016.pdf/b1ccde1b-61a9-ae35-2376-2507655b1427?t=1592217766903"
+        },
+        {
+            "title": "Attachment 1 - Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/fs_prohibited_business_conduct_july2016.pdf/e37abf3a-0acf-de5e-01c4-b1069e40e372?t=1592188995148"
+        },
+        {
+            "title": "Perbankan Islam Logo",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Perbankan_Islam_logo.pdf/f075e91a-ca22-4529-9a42-184bcddcbe76?t=1592217299240"
+        },
+        {
+            "title": "Guidelines on Credit Transactions and Exposures with Connected Parties for Islamic Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Guidelines_Credit_Transactions_Exposures_Connected_Parties_IB.pdf/c37bc211-ac72-6aec-4472-e03426c0ae4d?t=1629452162484"
+        },
+        {
+            "title": "Guidelines on Credit Transactions and Exposures with Connected Parties",
+            "url": "https://www.bnm.gov.my/documents/20124/0/gl_001_25.pdf/270b69c0-9ea2-09cd-cb73-9c8043bad19a?t=1592208081062"
+        },
+        {
+            "title": "Single Counterparty Exposure Limit",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Single_Counterparty_Exposure_Limit_July14.pdf/b7d8d94c-9c5c-1350-d831-a1e5329bfa28?t=1592216312003"
+        },
+        {
+            "title": "Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20131216_B_PL_0044_A01.pdf/5217d2ab-8eee-8e41-24a5-a2dd3792533b?t=1592216301431"
+        },
+        {
+            "title": "Single Counterparty Exposure Limit for Islamic Banking Institutions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Single_Counterparty_Exposure_Limit_for_Islamic_Banking_Institutions+%28July+2014%29.pdf/a91d1b1b-d31e-1516-961a-7792dd61d26c?t=1592216375353"
+        },
+        {
+            "title": "Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20131217_B_PL_0045_A01.pdf/7189d9be-ba65-57e4-2dd4-fdbad7e49d88?t=1592216415102"
+        },
+        {
+            "title": "Shariah Resolutions in Islamic Finance",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/NA_B_PL_0007.pdf/a5ab5da4-28a3-5def-cae9-1e1e8144236f?t=1592217236764"
+        },
+        {
+            "title": "Investment Account",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/IAF+Final_9Oct_5y.pdf/1045e582-fcb6-449c-73d0-2d1a533ccf06?t=1592216954387"
+        },
+        {
+            "title": "Attachment 1 - Reporting Template and Manual (revised on 2 August 2016)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Reporting+template+and+Manual.zip/b5b99332-d621-313f-ca77-58dfd43bcf8a?t=1592216932688"
+        },
+        {
+            "title": "Attachment 2 - Frequently Asked Question (issued on 14 July 2016)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/FAQ.pdf/1e311199-87c2-56ab-93cb-50bae3225a5d?t=1592217060372"
+        },
+        {
+            "title": "Reference Rate Framework",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Reference_Rate_Framework.pdf/e919c8a6-ec7e-e561-acc0-895209730bed?t=1592216675679"
+        },
+        {
+            "title": "Guide to Consumer on Reference Rate [English]",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Consumer+Guide+on+RRF_Eng.pdf/bea8c4e0-759d-706d-97d1-6bcd809a093c?t=1592216674854"
+        },
+        {
+            "title": "Guide to Consumer on Reference Rate [Bahasa Melayu]",
+            "url": "https://www.bnm.gov.my/documents/20124/914558/Consumer+Guide+on+RRF_BM.pdf/bd42b946-a8da-ecb5-b419-451d739fcdda?t=1590713433322"
+        },
+        {
+            "title": "Guide to Consumer on Reference Rate [Mandarin]",
+            "url": "https://www.bnm.gov.my/documents/20124/914558/Consumer+Guide+on+RRF_Mandarin.pdf/94933c81-e1bf-df8e-832e-880225b6e056?t=1590713425036"
+        },
+        {
+            "title": "Introduction of New Products",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/std_028_5.pdf/ddfb3c29-b09f-0cc1-14e6-caedda7a2b4f?t=1592211098335"
+        },
+        {
+            "title": "Murabahah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20131223_S_O_0001.pdf/756c9ea2-9184-67d5-a227-a2fa00bef7c9?t=1592216491941"
+        },
+        {
+            "title": "Risk-Informed Pricing",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20131216_B_PL_0043.pdf/c0dfc80a-a83f-da90-dae9-2317689c42b9?t=1592216160990"
+        },
+        {
+            "title": "Revised BNM/APP and BNM/DIR Application Forms and Statutory Declaration Form",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/BNM_RH_CIR+010-3.pdf/0e832d4f-ea3e-59a7-0efe-b174dbc5664a?t=1592215541089"
+        },
+        {
+            "title": "Related attachment : Revised Forms",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/BNM_RH_CIR+010-3_Revised_Forms.zip/d4a3b23d-5106-9147-dd8c-8cd15f63ed28?t=1592215567227"
+        },
+        {
+            "title": "Related attachment : Forms related to Insurance companies",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Forms-Insurance_financial_holding_companies+%281%29.zip/a4a194d3-f08c-b970-b7d7-998e03bd7d4d?t=1607325406720"
+        },
+        {
+            "title": "External Auditor",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/gl_018_4.pdf/1f2367d0-fc44-c7f3-0522-9a6df4b75d07?t=1592214084006"
+        },
+        {
+            "title": "Fit and Proper Criteria",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Ft_Proper_Criteria_280613.pdf/36e078eb-0b2e-f687-597a-1d579aa2c1d9?t=1592215267023"
+        },
+        {
+            "title": "Application to be Approved as Financial Holding Company Pursuant to Sections 280(2) and 280(3) of the Financial Services Act 2013 and Section 290(1) of the Islamic Financial Services Act 2013",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20130628_B_PL_0035.PDF/965c5619-1a39-e42c-ed56-53499bb19b30?t=1592213948603"
+        },
+        {
+            "title": "Prudential Standards on Securitisation Transactions for Islamic Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/38_Prudential_Standards_on_Securitisation_Transactions_24062013.pdf/e764958d-12ab-00c1-597a-0c1d74f5f35a?t=1601180424672"
+        },
+        {
+            "title": "Risk-Weighted Capital Adequacy Framework (Basel II) - Internal Capital Adequacy Assessment Process (Pillar 2)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20130331_B_CA_0009.pdf/81f148b3-25f3-cf06-1a79-eb8efef1b244?t=1592212480283"
+        },
+        {
+            "title": "Risk Governance",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/gl_013_5.pdf/d00c604b-412b-6a32-990e-f6368249a598?t=1592212357829"
+        },
+        {
+            "title": "Resolutions of Shariah Advisory Council of Bank Negara Malaysia 2010 - 2011",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20121107_S_G_0005.pdf/a8d0837f-bca1-aeac-fb50-57931ba14c4e?t=1592212076223"
+        },
+        {
+            "title": "Guidelines on Data Management and MIS Framework",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20110905_B_PL_0026.pdf/befb2f95-ce35-ae08-3855-9852206524bf?t=1592210931823"
+        },
+        {
+            "title": "Guidelines on Establishment and Operations of Representative Offices in Malaysia",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/01_Rep_Office_Guideline_20151105.pdf/953b8704-319a-ccb2-6840-6dc138780059?t=1592211629426"
+        },
+        {
+            "title": "Appendix 1: Form BNM/RO",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Form_BNM_RO_20151105.pdf/dee4a6f2-2ae0-f19b-72f0-5d304eebc1f7?t=1592211671912"
+        },
+        {
+            "title": "Appendix 2: Form BNM/CR",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Form_BNM_CR_20151105.pdf/f0111216-6238-fe49-6dcf-ffb36d704679?t=1592211702503"
+        },
+        {
+            "title": "Notification on the Implementation of Basel III",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20111216_B_CA_0011.pdf/1685cc4b-93ee-2d5e-45ff-a78f3bcd78ad?t=1592211447719"
+        },
+        {
+            "title": "Circular on POWER! Programme",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/4_power.pdf/d5d3da9c-d4a7-77aa-cd2d-d4c8b9ffb115?t=1592211370438"
+        },
+        {
+            "title": "Guidelines on Ibra' (Rebate) for Sale-Based Financing * Same guideline applies to Insurance & Takaful and Development Financial Institutions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20111101_B_PL_0030.pdf/84fda53c-1f02-68a7-6193-4c687bd217c7?t=1592211232240"
+        },
+        {
+            "title": "Risk Weighted Capital Adequacy Framework (Basel II) - Disclosure Requirements (Pillar 3)",
+            "url": "https://www.bnm.gov.my/documents/20124/0/20100101_B_CA_0004.pdf/767c808b-4fe9-58fb-a118-e4446bdd4642?t=1592210082414"
+        },
+        {
+            "title": "Guidelines on Property Development and Property Investment Activities by Islamic Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/0/gl_002_6.pdf/48f6a2b0-c37f-b987-415d-fa0628181fd3?t=1592210582077"
+        },
+        {
+            "title": "Prudential Standards on Securitisation Transactions",
+            "url": "https://www.bnm.gov.my/documents/20124/0/20091023_B_PL_0004.pdf/6542adda-01d9-0e65-f860-ee4c554e095d?t=1592208606778"
+        },
+        {
+            "title": "Guidelines on International Islamic Bank",
+            "url": "https://www.bnm.gov.my/documents/20124/0/20080324_B_PL_0022.pdf/66895dad-c15a-08fc-81f2-202ec6d83969?t=1592208357969"
+        },
+        {
+            "title": "Guidelines on Investment Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/0/20050701_B_PL_0010.pdf/ed5c15c1-e664-0a5d-f7a4-f9716cd29599?t=1592207937817"
+        },
+        {
+            "title": "Ijarah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD+Ijarah+28062018_Final.pdf/479fc345-c628-8996-25f0-8d1fe06aa700?t=1592245815724"
+        },
+        {
+            "title": "Shareholder Suitability",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/pd_Shareholder+suitability_Aug2016.pdf/16ced631-8017-d4ab-8a75-8b3727fcb1c9?t=1580443142872"
+        },
+        {
+            "title": "Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/fs_ShareholderSuitability_Aug2016.pdf/43975361-b64a-9908-fad7-ece405ae013f?t=1580443142251"
+        },
+        {
+            "title": "Hibah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Hibah.pdf/8d6ac6f9-9bb5-5780-005b-65a639c36f44?t=1592245213682"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/hibah_feedback.pdf/d8112c66-030c-8839-2a25-10c13cbe049c?t=1592245280364"
+        },
+        {
+            "title": "Qard",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD+Qard_26022018.pdf/795395cd-aeee-d497-109d-e3af19874a44?t=1592245448584"
+        },
+        {
+            "title": "FAQ",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/qard_faq.pdf/6ad65607-489b-de1c-c917-ae7890070a4d?t=1592245214867"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/qard_feedback.pdf/750035b0-4d33-962f-b5cd-0c2b83e0627f?t=1592245341938"
+        },
+        {
+            "title": "Wadiah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Wadiah_PD.pdf/af4d3c8b-8dc5-b54e-b295-0e43836187aa?t=1592245542456"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/wadiah_feedback.pdf/de82d411-8f7a-270b-ebc5-0edb5b3aa048?t=1592245606386"
+        },
+        {
+            "title": "Corporate Governance",
+            "url": "https://www.bnm.gov.my/documents/20124/65319/pd_CorporateGovernance_Aug2016.pdf/b587630a-a1af-3607-c7f5-03086826c021?t=1586927811343"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/fs_corporategovernance_Aug2016.pdf/4c0651ff-e021-865e-26dc-b30afd4b081f?t=1592245113913"
+        },
+        {
+            "title": "Change in terminology \"Private Debt Securities\" to \"Corporate Bond and/or Sukuk",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/change_in_terminology.pdf/13032d97-47ac-cdfc-7f0b-bc265b2c1a4a?t=1580438999941"
+        },
+        {
+            "title": "Wakalah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/PD_Wakalah.pdf/fe87974d-190f-0e11-b0e3-9cb7ab96eb02?t=1592244614898"
+        },
+        {
+            "title": "Attachment 1: Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/wakalah_feedback_statement.pdf/4dc42a88-061a-e18a-9322-4d38dfa59394?t=1592244622989"
+        },
+        {
+            "title": "Operational Risk",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/pd_operational+risk_may2016.pdf/c1179a37-07f8-c6b0-6354-bc7216e903a0?t=1580434747718"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/761691/fs_operational+risk_may2016.pdf/9f94ea76-99a2-58db-8e8b-7d47b7a3b794?t=1580434747049"
+        },
+        {
+            "title": "Compliance",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_compliance_Oct2015+%28Reissuance_May2016%29.pdf/6da52ca8-734a-d2fb-e214-093430ea8fb6?t=1592219195301"
+        },
+        {
+            "title": "Response to feedback received - Compliance",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/fs_compliance_Oct2015.pdf/0190eb79-1e67-53b7-3afa-283071eb83f6?t=1592219234812"
+        },
+        {
+            "title": "Manual Rujukan Institusi Kewangan Islam Kepada Majlis Penasihat Shariah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Manual_Rujukan_IKI_kpd_MPS.pdf/d58a8c36-a439-b036-1b9e-0ffe980bb482?t=1592244270923"
+        },
+        {
+            "title": "Istisna'",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Istisna_PD_29122015.pdf/b2da7948-cb8a-40ad-f669-3d55b4e8b26b?t=1592244257525"
+        },
+        {
+            "title": "Regulatory Treatment of BNM Mudarabah Certificate (BMC) for Licensed Banks and Licensed Islamic Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/BMC_Letter.pdf/6675d52a-bb9c-97f2-5b07-8c1c9f88d0b8?t=1592218411899"
+        },
+        {
+            "title": "Requirements for the Conduct of Money Services Business by Banking Institutions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Requirements_for_the_Conduct_of_MSB_by_BIs_v2.pdf/52219870-22eb-d8ee-7209-f893e484a2d6?t=1592218351679"
+        },
+        {
+            "title": "Mudarabah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Mudarabah.pdf/2ea1c2df-b084-1b3b-f640-d7993d1e38ea?t=1592218042807"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Feedback+Statement+for+Mudarabah.pdf/506b4b37-502f-0551-8049-2844e317b061?t=1592218145581"
+        },
+        {
+            "title": "Musyarakah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Musyarakah.pdf/e99baaa9-d7cd-a61f-8d0a-9c9f2521dd4d?t=1592218252160"
+        },
+        {
+            "title": "Response to feedback received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Feedback+Statement+for+Musyarakah.pdf/e419a8f3-83ba-92cd-091e-1e5bbd840a11?t=1592218258894"
+        },
+        {
+            "title": "Prohibited Business Conduct **NEW 2016/07/19",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/pd_prohibited_business_conduct_july2016.pdf/b1ccde1b-61a9-ae35-2376-2507655b1427?t=1592217766903"
+        },
+        {
+            "title": "Attachment 1 - Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/fs_prohibited_business_conduct_july2016.pdf/e37abf3a-0acf-de5e-01c4-b1069e40e372?t=1592188995148"
+        },
+        {
+            "title": "Perbankan Islam Logo",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Perbankan_Islam_logo.pdf/f075e91a-ca22-4529-9a42-184bcddcbe76?t=1592217299240"
+        },
+        {
+            "title": "Guidelines on Credit Transactions and Exposures with Connected Parties for Islamic Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Guidelines_Credit_Transactions_Exposures_Connected_Parties_IB.pdf/c37bc211-ac72-6aec-4472-e03426c0ae4d?t=1629452162484"
+        },
+        {
+            "title": "Guidelines on Credit Transactions and Exposures with Connected Parties",
+            "url": "https://www.bnm.gov.my/documents/20124/0/gl_001_25.pdf/270b69c0-9ea2-09cd-cb73-9c8043bad19a?t=1592208081062"
+        },
+        {
+            "title": "Single Counterparty Exposure Limit",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Single_Counterparty_Exposure_Limit_July14.pdf/b7d8d94c-9c5c-1350-d831-a1e5329bfa28?t=1592216312003"
+        },
+        {
+            "title": "Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20131216_B_PL_0044_A01.pdf/5217d2ab-8eee-8e41-24a5-a2dd3792533b?t=1592216301431"
+        },
+        {
+            "title": "Single Counterparty Exposure Limit for Islamic Banking Institutions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Single_Counterparty_Exposure_Limit_for_Islamic_Banking_Institutions+%28July+2014%29.pdf/a91d1b1b-d31e-1516-961a-7792dd61d26c?t=1592216375353"
+        },
+        {
+            "title": "Response to Feedback Received",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20131217_B_PL_0045_A01.pdf/7189d9be-ba65-57e4-2dd4-fdbad7e49d88?t=1592216415102"
+        },
+        {
+            "title": "Shariah Resolutions in Islamic Finance",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/NA_B_PL_0007.pdf/a5ab5da4-28a3-5def-cae9-1e1e8144236f?t=1592217236764"
+        },
+        {
+            "title": "Investment Account",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/IAF+Final_9Oct_5y.pdf/1045e582-fcb6-449c-73d0-2d1a533ccf06?t=1592216954387"
+        },
+        {
+            "title": "Attachment 1 - Reporting Template and Manual (revised on 2 August 2016)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Reporting+template+and+Manual.zip/b5b99332-d621-313f-ca77-58dfd43bcf8a?t=1592216932688"
+        },
+        {
+            "title": "Attachment 2 - Frequently Asked Question (issued on 14 July 2016)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/FAQ.pdf/1e311199-87c2-56ab-93cb-50bae3225a5d?t=1592217060372"
+        },
+        {
+            "title": "Reference Rate Framework",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Reference_Rate_Framework.pdf/e919c8a6-ec7e-e561-acc0-895209730bed?t=1592216675679"
+        },
+        {
+            "title": "Guide to Consumer on Reference Rate [English]",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Consumer+Guide+on+RRF_Eng.pdf/bea8c4e0-759d-706d-97d1-6bcd809a093c?t=1592216674854"
+        },
+        {
+            "title": "Guide to Consumer on Reference Rate [Bahasa Melayu]",
+            "url": "https://www.bnm.gov.my/documents/20124/914558/Consumer+Guide+on+RRF_BM.pdf/bd42b946-a8da-ecb5-b419-451d739fcdda?t=1590713433322"
+        },
+        {
+            "title": "Guide to Consumer on Reference Rate [Mandarin]",
+            "url": "https://www.bnm.gov.my/documents/20124/914558/Consumer+Guide+on+RRF_Mandarin.pdf/94933c81-e1bf-df8e-832e-880225b6e056?t=1590713425036"
+        },
+        {
+            "title": "Introduction of New Products",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/std_028_5.pdf/ddfb3c29-b09f-0cc1-14e6-caedda7a2b4f?t=1592211098335"
+        },
+        {
+            "title": "Murabahah",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20131223_S_O_0001.pdf/756c9ea2-9184-67d5-a227-a2fa00bef7c9?t=1592216491941"
+        },
+        {
+            "title": "Risk-Informed Pricing",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20131216_B_PL_0043.pdf/c0dfc80a-a83f-da90-dae9-2317689c42b9?t=1592216160990"
+        },
+        {
+            "title": "Revised BNM/APP and BNM/DIR Application Forms and Statutory Declaration Form",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/BNM_RH_CIR+010-3.pdf/0e832d4f-ea3e-59a7-0efe-b174dbc5664a?t=1592215541089"
+        },
+        {
+            "title": "Related attachment : Revised Forms",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/BNM_RH_CIR+010-3_Revised_Forms.zip/d4a3b23d-5106-9147-dd8c-8cd15f63ed28?t=1592215567227"
+        },
+        {
+            "title": "Related attachment : Forms related to Insurance companies",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Forms-Insurance_financial_holding_companies+%281%29.zip/a4a194d3-f08c-b970-b7d7-998e03bd7d4d?t=1607325406720"
+        },
+        {
+            "title": "External Auditor",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/gl_018_4.pdf/1f2367d0-fc44-c7f3-0522-9a6df4b75d07?t=1592214084006"
+        },
+        {
+            "title": "Fit and Proper Criteria",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Ft_Proper_Criteria_280613.pdf/36e078eb-0b2e-f687-597a-1d579aa2c1d9?t=1592215267023"
+        },
+        {
+            "title": "Application to be Approved as Financial Holding Company Pursuant to Sections 280(2) and 280(3) of the Financial Services Act 2013 and Section 290(1) of the Islamic Financial Services Act 2013",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20130628_B_PL_0035.PDF/965c5619-1a39-e42c-ed56-53499bb19b30?t=1592213948603"
+        },
+        {
+            "title": "Prudential Standards on Securitisation Transactions for Islamic Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/38_Prudential_Standards_on_Securitisation_Transactions_24062013.pdf/e764958d-12ab-00c1-597a-0c1d74f5f35a?t=1601180424672"
+        },
+        {
+            "title": "Risk-Weighted Capital Adequacy Framework (Basel II) - Internal Capital Adequacy Assessment Process (Pillar 2)",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20130331_B_CA_0009.pdf/81f148b3-25f3-cf06-1a79-eb8efef1b244?t=1592212480283"
+        },
+        {
+            "title": "Risk Governance",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/gl_013_5.pdf/d00c604b-412b-6a32-990e-f6368249a598?t=1592212357829"
+        },
+        {
+            "title": "Resolutions of Shariah Advisory Council of Bank Negara Malaysia 2010 - 2011",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20121107_S_G_0005.pdf/a8d0837f-bca1-aeac-fb50-57931ba14c4e?t=1592212076223"
+        },
+        {
+            "title": "Guidelines on Data Management and MIS Framework",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20110905_B_PL_0026.pdf/befb2f95-ce35-ae08-3855-9852206524bf?t=1592210931823"
+        },
+        {
+            "title": "Guidelines on Establishment and Operations of Representative Offices in Malaysia",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/01_Rep_Office_Guideline_20151105.pdf/953b8704-319a-ccb2-6840-6dc138780059?t=1592211629426"
+        },
+        {
+            "title": "Appendix 1: Form BNM/RO",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Form_BNM_RO_20151105.pdf/dee4a6f2-2ae0-f19b-72f0-5d304eebc1f7?t=1592211671912"
+        },
+        {
+            "title": "Appendix 2: Form BNM/CR",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/Form_BNM_CR_20151105.pdf/f0111216-6238-fe49-6dcf-ffb36d704679?t=1592211702503"
+        },
+        {
+            "title": "Notification on the Implementation of Basel III",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20111216_B_CA_0011.pdf/1685cc4b-93ee-2d5e-45ff-a78f3bcd78ad?t=1592211447719"
+        },
+        {
+            "title": "Circular on POWER! Programme",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/4_power.pdf/d5d3da9c-d4a7-77aa-cd2d-d4c8b9ffb115?t=1592211370438"
+        },
+        {
+            "title": "Guidelines on Ibra' (Rebate) for Sale-Based Financing * Same guideline applies to Insurance & Takaful and Development Financial Institutions",
+            "url": "https://www.bnm.gov.my/documents/20124/938039/20111101_B_PL_0030.pdf/84fda53c-1f02-68a7-6193-4c687bd217c7?t=1592211232240"
+        },
+        {
+            "title": "Risk Weighted Capital Adequacy Framework (Basel II) - Disclosure Requirements (Pillar 3)",
+            "url": "https://www.bnm.gov.my/documents/20124/0/20100101_B_CA_0004.pdf/767c808b-4fe9-58fb-a118-e4446bdd4642?t=1592210082414"
+        },
+        {
+            "title": "Guidelines on Property Development and Property Investment Activities by Islamic Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/0/gl_002_6.pdf/48f6a2b0-c37f-b987-415d-fa0628181fd3?t=1592210582077"
+        },
+        {
+            "title": "Prudential Standards on Securitisation Transactions",
+            "url": "https://www.bnm.gov.my/documents/20124/0/20091023_B_PL_0004.pdf/6542adda-01d9-0e65-f860-ee4c554e095d?t=1592208606778"
+        },
+        {
+            "title": "Guidelines on International Islamic Bank",
+            "url": "https://www.bnm.gov.my/documents/20124/0/20080324_B_PL_0022.pdf/66895dad-c15a-08fc-81f2-202ec6d83969?t=1592208357969"
+        },
+        {
+            "title": "Guidelines on Investment Banks",
+            "url": "https://www.bnm.gov.my/documents/20124/0/20050701_B_PL_0010.pdf/ed5c15c1-e664-0a5d-f7a4-f9716cd29599?t=1592207937817"
+        }
+    ]
+}

@@ -85,9 +85,8 @@ export function registerChatRoutes(app: Express): void {
 
         if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
           try {
-            const pdfContent = await extractPdfText(
-              relevanceCheck.selectedDocument.link,
-            );
+            const pdfUrl = relevanceCheck.selectedDocument.url;
+            const pdfContent = await extractPdfText(pdfUrl);
             systemPrompt = createPdfContextPrompt(
               pdfContent,
               relevanceCheck.selectedDocument.title,
@@ -128,7 +127,7 @@ export function registerChatRoutes(app: Express): void {
         if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
           pdfData = {
             title: relevanceCheck.selectedDocument.title,
-            link: relevanceCheck.selectedDocument.link,
+            link: relevanceCheck.selectedDocument.url,
             description:
               relevanceCheck.reasoning || "Related BNM Policy Document",
           };
