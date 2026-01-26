@@ -83,13 +83,17 @@ export function registerChatRoutes(app: Express): void {
         let systemPrompt =
           "You are a helpful AI assistant. You provide knowledgeable, respectful, and accurate information. Your tone is polite and warm. Keep your response concise and structured. Aim for under 800 words to ensure completeness within token limits.";
 
+        let pdfPages: any[] = [];
+
         if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
           try {
             const pdfUrl = relevanceCheck.selectedDocument.url;
-            const pdfContent = await extractPdfText(pdfUrl);
+            const { fullText, pages } = await extractPdfText(pdfUrl);
+            pdfPages = pages;
             systemPrompt = createPdfContextPrompt(
-              pdfContent,
+              fullText,
               relevanceCheck.selectedDocument.title,
+              pages,
             );
           } catch (pdfError) {
             console.error("Error processing PDF:", pdfError);
@@ -123,6 +127,39 @@ export function registerChatRoutes(app: Express): void {
           }
         }
 
+        // Extract citations from the response
+        const citationMatch = fullResponse.match(
+          /---CITATIONS---\n([\s\S]*?)$/,
+        );
+        let citations = null;
+        let mainContent = fullResponse;
+
+        if (citationMatch) {
+          const citationText = citationMatch[1].trim();
+          mainContent = fullResponse
+            .replace(/---CITATIONS---[\s\S]*$/, "")
+            .trim();
+
+          // Parse citations
+          const citationLines = citationText
+            .split("\n")
+            .filter((line) => line.trim());
+          citations = citationLines
+            .map((line) => {
+              const match = line.match(
+                /^-?\s*Page\s+(\d+(?:,\s*\d+)*)\s*:\s*(.+)$/i,
+              );
+              if (match) {
+                return {
+                  pages: match[1].split(",").map((p) => parseInt(p.trim())),
+                  text: match[2].trim(),
+                };
+              }
+              return null;
+            })
+            .filter(Boolean);
+        }
+
         let pdfData = null;
         if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
           pdfData = {
@@ -130,6 +167,7 @@ export function registerChatRoutes(app: Express): void {
             link: relevanceCheck.selectedDocument.url,
             description:
               relevanceCheck.reasoning || "Related BNM Policy Document",
+            citations: citations || [],
           };
           res.write(`data: ${JSON.stringify({ pdf: pdfData })}\n\n`);
         }
@@ -137,7 +175,7 @@ export function registerChatRoutes(app: Express): void {
         await chatStorage.createMessage(
           conversationId,
           "assistant",
-          fullResponse,
+          mainContent,
           pdfData,
         );
 

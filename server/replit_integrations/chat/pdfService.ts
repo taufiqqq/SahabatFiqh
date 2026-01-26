@@ -5,7 +5,8 @@ const openai = new OpenAI({
     baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
 });
 
-const CRAWLER_API_URL = 'https://sahabat-fiqh-crawler-34o7etaj1-taufiqqqs-projects.vercel.app/scrape/bnm?x-vercel-protection-bypass=Jn2rmGmvjnTDCpQ9dlTfepiHN7ozFUoq';
+const CRAWLER_API_URL =
+    "https://sahabat-fiqh-crawler-34o7etaj1-taufiqqqs-projects.vercel.app/scrape/bnm?x-vercel-protection-bypass=Jn2rmGmvjnTDCpQ9dlTfepiHN7ozFUoq";
 
 interface ScriptDocument {
     title: string;
@@ -18,16 +19,24 @@ interface RelevanceResult {
     reasoning: string;
 }
 
+interface PdfPageContent {
+    pageNumber: number;
+    text: string;
+}
+
 /**
  * Fetches the latest document list from the crawler API
  */
 async function getDocumentList(): Promise<ScriptDocument[]> {
     try {
         const response = await fetch(CRAWLER_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
         });
-        if (!response.ok) throw new Error(`Failed to fetch crawler data: ${response.statusText}`);
+        if (!response.ok)
+            throw new Error(
+                `Failed to fetch crawler data: ${response.statusText}`,
+            );
         const result = await response.json();
         return result.data || [];
     } catch (error) {
@@ -40,16 +49,18 @@ async function getDocumentList(): Promise<ScriptDocument[]> {
  * Determines if a user query is relevant to any document in the remote API
  */
 export async function findRelevantDocument(
-    userQuery: string
+    userQuery: string,
 ): Promise<RelevanceResult> {
     try {
         const documents = await getDocumentList();
         if (documents.length === 0) {
-            return { isRelevant: false, selectedDocument: null, reasoning: "No documents available from API" };
+            return {
+                isRelevant: false,
+                selectedDocument: null,
+                reasoning: "No documents available from API",
+            };
         }
 
-        // Limit the number of documents passed to OpenAI to avoid token limits
-        // We'll take the first 100 as a representative sample or we could do a more sophisticated search
         const docCount = documents.length;
         const documentList = documents
             .slice(0, 100)
@@ -81,7 +92,11 @@ Respond in this exact JSON format:
 
         const result = JSON.parse(response.choices[0].message.content || "{}");
 
-        if (result.isRelevant && result.documentNumber && result.documentNumber <= documents.length) {
+        if (
+            result.isRelevant &&
+            result.documentNumber &&
+            result.documentNumber <= documents.length
+        ) {
             const selectedDoc = documents[result.documentNumber - 1];
             return {
                 isRelevant: true,
@@ -93,7 +108,8 @@ Respond in this exact JSON format:
         return {
             isRelevant: false,
             selectedDocument: null,
-            reasoning: result.reasoning || "Query not related to available documents",
+            reasoning:
+                result.reasoning || "Query not related to available documents",
         };
     } catch (error) {
         console.error("Error finding relevant document:", error);
@@ -106,18 +122,21 @@ Respond in this exact JSON format:
 }
 
 /**
- * Fetches PDF from URL and extracts text content
+ * Fetches PDF from URL and extracts text content with page information
  */
-export async function extractPdfText(pdfUrl: string): Promise<string> {
+export async function extractPdfText(
+    pdfUrl: string,
+): Promise<{ fullText: string; pages: PdfPageContent[] }> {
     try {
         const response = await fetch(pdfUrl, {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'application/pdf,application/octet-stream,*/*',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'Referer': 'https://www.bnm.gov.my/',
-                'Cache-Control': 'no-cache',
-            }
+                "User-Agent":
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                Accept: "application/pdf,application/octet-stream,*/*",
+                "Accept-Language": "en-US,en;q=0.9",
+                Referer: "https://www.bnm.gov.my/",
+                "Cache-Control": "no-cache",
+            },
         });
         if (!response.ok) {
             throw new Error(`Failed to fetch PDF: ${response.statusText}`);
@@ -127,10 +146,31 @@ export async function extractPdfText(pdfUrl: string): Promise<string> {
         const buffer = Buffer.from(arrayBuffer);
 
         const pdf = await import("pdf-parse");
-        const parse = typeof pdf === 'function' ? pdf : (pdf as any).default || pdf;
+        const parse =
+            typeof pdf === "function" ? pdf : (pdf as any).default || pdf;
         const data = await parse(buffer);
 
-        return data.text;
+        // Extract page-by-page content
+        const pages: PdfPageContent[] = [];
+        if (data.text) {
+            // Simple heuristic: split by form feed or estimate based on character count
+            // Note: pdf-parse doesn't provide per-page text by default, so we approximate
+            const pageBreaks = data.text.split("\f"); // Form feed character often indicates page breaks
+            pageBreaks.forEach((pageText, index) => {
+                if (pageText.trim()) {
+                    pages.push({
+                        pageNumber: index + 1,
+                        text: pageText.trim(),
+                    });
+                }
+            });
+        }
+
+        return {
+            fullText: data.text,
+            pages:
+                pages.length > 0 ? pages : [{ pageNumber: 1, text: data.text }],
+        };
     } catch (error) {
         console.error("Error extracting PDF text:", error);
         throw new Error("Failed to extract PDF content");
@@ -138,12 +178,19 @@ export async function extractPdfText(pdfUrl: string): Promise<string> {
 }
 
 /**
- * Creates an enhanced system prompt with PDF context
+ * Creates an enhanced system prompt with PDF context and citation instructions
  */
 export function createPdfContextPrompt(
     pdfContent: string,
-    documentTitle: string
+    documentTitle: string,
+    pages: PdfPageContent[],
 ): string {
+    // Create a page reference guide
+    const pageGuide = pages
+        .slice(0, 50)
+        .map((p) => `Page ${p.pageNumber}: ${p.text.substring(0, 200)}...`)
+        .join("\n\n");
+
     return `You are an AI assistant focused on Islamic banking and Malaysian financial regulations.
 
 IMPORTANT CONTEXT:
@@ -152,15 +199,23 @@ The user's question is related to "${documentTitle}". I have retrieved the full 
 STRICT INSTRUCTIONS:
 1. You MUST use the document content below as your PRIMARY reference
 2. Base your answer STRICTLY on the information in this document
-3. If the document doesn't contain the answer, clearly state that
-4. Quote relevant sections from the document when applicable
-5. Do not make up information not present in the document
-6. Keep your response concise and structured. Do not exceed 800 words to avoid being cut off.
+3. When you reference specific information, you MUST include a citation marker in this format: [Page X]
+4. Place [Page X] citations immediately after the relevant sentence or claim
+5. If you reference multiple pages, use [Page X, Y, Z]
+6. At the end of your response, include a section with:
+   ---CITATIONS---
+   - Page X: Brief quote or reference to what was cited
+   - Page Y: Brief quote or reference to what was cited
+7. If the document doesn't contain the answer, clearly state that
+8. Keep your response concise and structured. Do not exceed 800 words to avoid being cut off.
 
-DOCUMENT CONTENT:
+PAGE REFERENCE GUIDE (First 50 pages):
+${pageGuide}
+
+FULL DOCUMENT CONTENT:
 ${pdfContent.substring(0, 50000)} 
 
 ${pdfContent.length > 50000 ? "\n[Document truncated due to length...]" : ""}
 
-Now answer the user's question based ONLY on this document.`;
+Now answer the user's question based ONLY on this document, with proper page citations.`;
 }

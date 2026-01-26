@@ -1,7 +1,12 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { User, Sparkles, FileText, ExternalLink } from "lucide-react";
+import { User, Sparkles, FileText, ExternalLink, BookOpen } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+
+interface Citation {
+  pages: number[];
+  text: string;
+}
 
 interface Message {
   id?: number;
@@ -12,6 +17,7 @@ interface Message {
     title: string;
     link: string;
     description: string;
+    citations?: Citation[];
   };
 }
 
@@ -21,7 +27,11 @@ interface ChatWindowProps {
   streamedContent: string;
 }
 
-export function ChatWindow({ messages, isStreaming, streamedContent }: ChatWindowProps) {
+export function ChatWindow({
+  messages,
+  isStreaming,
+  streamedContent,
+}: ChatWindowProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,7 +51,8 @@ export function ChatWindow({ messages, isStreaming, streamedContent }: ChatWindo
             As-salamu alaykum
           </h2>
           <p className="max-w-md text-muted-foreground">
-            I am your SahabatFiqh assistant. Ask me anything about Islamic values, history, or daily life.
+            I am your SahabatFiqh assistant. Ask me anything about Islamic
+            values, history, or daily life.
           </p>
         </div>
       ) : (
@@ -67,37 +78,43 @@ export function ChatWindow({ messages, isStreaming, streamedContent }: ChatWindo
   );
 }
 
-function MessageBubble({ 
-  message, 
-  isThinking 
-}: { 
-  message: Message; 
-  isThinking?: boolean 
+function MessageBubble({
+  message,
+  isThinking,
+}: {
+  message: Message;
+  isThinking?: boolean;
 }) {
   const isUser = message.role === "user";
 
   return (
-    <div className={cn(
-      "flex w-full flex-col gap-3",
-      isUser ? "items-end" : "items-start"
-    )}>
-      <div className={cn(
-        "flex w-full gap-4",
-        isUser ? "justify-end" : "justify-start"
-      )}>
+    <div
+      className={cn(
+        "flex w-full flex-col gap-3",
+        isUser ? "items-end" : "items-start",
+      )}
+    >
+      <div
+        className={cn(
+          "flex w-full gap-4",
+          isUser ? "justify-end" : "justify-start",
+        )}
+      >
         {!isUser && (
           <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center shrink-0 border border-secondary/30 mt-1 shadow-sm">
             <span className="text-lg">🕌</span>
           </div>
         )}
 
-        <div className={cn(
-          "max-w-[85%] md:max-w-[75%] rounded-2xl px-5 py-3.5 text-sm md:text-base leading-relaxed shadow-sm transition-all duration-200",
-          isUser
-            ? "bg-primary text-primary-foreground rounded-tr-sm"
-            : "bg-white border border-border/60 text-foreground rounded-tl-sm",
-          isThinking && "animate-pulse italic opacity-80"
-        )}>
+        <div
+          className={cn(
+            "max-w-[85%] md:max-w-[75%] rounded-2xl px-5 py-3.5 text-sm md:text-base leading-relaxed shadow-sm transition-all duration-200",
+            isUser
+              ? "bg-primary text-primary-foreground rounded-tr-sm"
+              : "bg-white border border-border/60 text-foreground rounded-tl-sm",
+            isThinking && "animate-pulse italic opacity-80",
+          )}
+        >
           {isThinking ? (
             <div className="flex gap-1 items-center h-6">
               <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce [animation-delay:-0.3s]"></span>
@@ -108,8 +125,14 @@ function MessageBubble({
             <div className="prose prose-sm max-w-none dark:prose-invert">
               <ReactMarkdown
                 components={{
-                  p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                  strong: ({ children }) => <span className="font-bold text-secondary-foreground">{children}</span>,
+                  p: ({ children }) => (
+                    <p className="mb-2 last:mb-0">{children}</p>
+                  ),
+                  strong: ({ children }) => (
+                    <span className="font-bold text-secondary-foreground">
+                      {children}
+                    </span>
+                  ),
                 }}
               >
                 {message.content}
@@ -125,11 +148,42 @@ function MessageBubble({
         )}
       </div>
 
+      {/* Citations Section - Placed between content and PDF attachment */}
+      {!isUser &&
+        message.pdf &&
+        message.pdf.citations &&
+        message.pdf.citations.length > 0 && (
+          <div className="ml-12 w-[calc(100%-3rem)] max-w-[80%] bg-amber-50/80 backdrop-blur border-l-4 border-amber-500 rounded-lg p-4 shadow-sm">
+            <div className="flex items-center gap-2 mb-3">
+              <BookOpen className="w-4 h-4 text-amber-700" />
+              <h4 className="text-xs font-bold text-amber-900 uppercase tracking-wide">
+                Source Citations
+              </h4>
+            </div>
+            <div className="space-y-2">
+              {message.pdf.citations.map((citation, idx) => (
+                <div key={idx} className="flex gap-3 text-xs">
+                  <div className="flex-shrink-0">
+                    <span className="inline-flex items-center justify-center bg-amber-600 text-white rounded px-2 py-0.5 font-mono font-semibold text-[10px]">
+                      {citation.pages.length === 1
+                        ? `p. ${citation.pages[0]}`
+                        : `pp. ${citation.pages.join(", ")}`}
+                    </span>
+                  </div>
+                  <p className="text-amber-900/90 leading-relaxed flex-1">
+                    {citation.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
       {/* PDF Attachment Bubble */}
       {!isUser && message.pdf && (
-        <a 
-          href={message.pdf.link} 
-          target="_blank" 
+        <a
+          href={message.pdf.link}
+          target="_blank"
           rel="noopener noreferrer"
           className="ml-12 group flex items-center gap-4 bg-white/80 backdrop-blur border border-secondary/30 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-secondary transition-all max-w-[80%] cursor-pointer active:scale-[0.98]"
         >
