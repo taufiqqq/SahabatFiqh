@@ -87,9 +87,9 @@ export class VectorService {
         if (records.length > 0) {
             try {
                 const table = await db.openTable(TABLE_NAME);
-                await table.add(records);
+                await table.add(records as any);
             } catch (e) {
-                await db.createTable(TABLE_NAME, records);
+                await db.createTable(TABLE_NAME, records as any);
             }
         }
     }
@@ -124,7 +124,7 @@ export class VectorService {
 
         if (results.length === 0) return null;
 
-        const bestPage = results[0];
+        const bestPage = results[0] as any;
         const pageNum = bestPage.pageNumber;
 
         // Triple-Page Context: Page-1, Page, Page+1
