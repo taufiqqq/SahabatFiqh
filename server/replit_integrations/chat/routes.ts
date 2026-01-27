@@ -6,6 +6,7 @@ import {
   extractPdfText,
   createPdfContextPrompt,
 } from "./pdfService";
+import { vectorService } from "./vectorService";
 
 const openai = new OpenAI({
   apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
@@ -25,7 +26,7 @@ export function registerChatRoutes(app: Express): void {
 
   app.get("/api/conversations/:id", async (req: Request, res: Response) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = parseInt(req.params.id as string);
       const conversation = await chatStorage.getConversation(id);
       if (!conversation) {
         return res.status(404).json({ error: "Conversation not found" });
@@ -53,7 +54,7 @@ export function registerChatRoutes(app: Express): void {
 
   app.delete("/api/conversations/:id", async (req: Request, res: Response) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = parseInt(req.params.id as string);
       await chatStorage.deleteConversation(id);
       res.status(204).send();
     } catch (error) {
@@ -66,7 +67,7 @@ export function registerChatRoutes(app: Express): void {
     "/api/conversations/:id/messages",
     async (req: Request, res: Response) => {
       try {
-        const conversationId = parseInt(req.params.id);
+        const conversationId = parseInt(req.params.id as string);
         const { content } = req.body;
 
         await chatStorage.createMessage(conversationId, "user", content);
@@ -81,23 +82,46 @@ export function registerChatRoutes(app: Express): void {
         const relevanceCheck = await findRelevantDocument(content);
 
         let systemPrompt =
-          "You are a helpful AI assistant. You provide knowledgeable, respectful, and accurate information. Your tone is polite and warm. Keep your response concise and structured. Aim for under 800 words to ensure completeness within token limits.";
+          "You are a helpful AI assistant. You provide knowledgeable, respectful, and accurate information. Your tone is polite and warm. Keep your response concise and structured.";
 
-        let pdfPages: any[] = [];
+        let pdfData = null;
 
         if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
           try {
             const pdfUrl = relevanceCheck.selectedDocument.url;
-            const { fullText, pages } = await extractPdfText(pdfUrl);
-            pdfPages = pages;
-            systemPrompt = createPdfContextPrompt(
-              fullText,
-              relevanceCheck.selectedDocument.title,
-              pages,
+            const documentTitle = relevanceCheck.selectedDocument.title;
+
+            // 1. Index if not done
+            const isIndexed = await vectorService.isIndexed(pdfUrl);
+            if (!isIndexed) {
+              console.log(`Indexing: ${documentTitle}`);
+              const { pages } = await extractPdfText(pdfUrl);
+              await vectorService.upsertPdfPages(pdfUrl, pages);
+            }
+
+            // 2. Search for 3-page context
+            const searchResult = await vectorService.searchRelevantPages(
+              content,
+              pdfUrl,
             );
+
+            if (searchResult) {
+              systemPrompt = createPdfContextPrompt(
+                searchResult.contextText,
+                documentTitle,
+              );
+              pdfData = {
+                title: documentTitle,
+                link: pdfUrl,
+                description:
+                  relevanceCheck.reasoning || "Related BNM Policy Document",
+                page: searchResult.bestPageNumber,
+              };
+            }
           } catch (pdfError) {
-            console.error("Error processing PDF:", pdfError);
-            systemPrompt += `\n\nNote: I found a relevant document titled "${relevanceCheck.selectedDocument.title}" but couldn't access it. I'll answer based on my general knowledge.`;
+            console.error("Error with Triple-Page RAG:", pdfError);
+            systemPrompt +=
+              "\n\nNote: I found a relevant document but am answering based on general knowledge due to a retrieval error.";
           }
         }
 
@@ -127,55 +151,14 @@ export function registerChatRoutes(app: Express): void {
           }
         }
 
-        // Extract citations from the response
-        const citationMatch = fullResponse.match(
-          /---CITATIONS---\n([\s\S]*?)$/,
-        );
-        let citations = null;
-        let mainContent = fullResponse;
-
-        if (citationMatch) {
-          const citationText = citationMatch[1].trim();
-          mainContent = fullResponse
-            .replace(/---CITATIONS---[\s\S]*$/, "")
-            .trim();
-
-          // Parse citations
-          const citationLines = citationText
-            .split("\n")
-            .filter((line) => line.trim());
-          citations = citationLines
-            .map((line) => {
-              const match = line.match(
-                /^-?\s*Page\s+(\d+(?:,\s*\d+)*)\s*:\s*(.+)$/i,
-              );
-              if (match) {
-                return {
-                  pages: match[1].split(",").map((p) => parseInt(p.trim())),
-                  text: match[2].trim(),
-                };
-              }
-              return null;
-            })
-            .filter(Boolean);
-        }
-
-        let pdfData = null;
-        if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
-          pdfData = {
-            title: relevanceCheck.selectedDocument.title,
-            link: relevanceCheck.selectedDocument.url,
-            description:
-              relevanceCheck.reasoning || "Related BNM Policy Document",
-            citations: citations || [],
-          };
+        if (pdfData) {
           res.write(`data: ${JSON.stringify({ pdf: pdfData })}\n\n`);
         }
 
         await chatStorage.createMessage(
           conversationId,
           "assistant",
-          mainContent,
+          fullResponse,
           pdfData,
         );
 

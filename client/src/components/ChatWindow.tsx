@@ -87,6 +87,16 @@ function MessageBubble({
 }) {
   const isUser = message.role === "user";
 
+  // Parse <cite> tag from content
+  const citeRegex = /<cite>([\s\S]*?)<\/cite>/i;
+  const citeMatch = message.content.match(citeRegex);
+  const citationContent = citeMatch ? citeMatch[1].trim() : null;
+  const cleanContent = message.content.replace(citeRegex, "").trim();
+
+  // Extract page number from citation content if possible: [Source, Page X]
+  const pageMatch = citationContent?.match(/Page\s+(\d+)/i);
+  const citationPage = pageMatch ? pageMatch[1] : null;
+
   return (
     <div
       className={cn(
@@ -135,7 +145,7 @@ function MessageBubble({
                   ),
                 }}
               >
-                {message.content}
+                {cleanContent}
               </ReactMarkdown>
             </div>
           )}
@@ -148,57 +158,51 @@ function MessageBubble({
         )}
       </div>
 
-      {/* Citations Section - Placed between content and PDF attachment */}
-      {!isUser &&
-        message.pdf &&
-        message.pdf.citations &&
-        message.pdf.citations.length > 0 && (
-          <div className="ml-12 w-[calc(100%-3rem)] max-w-[80%] bg-amber-50/80 backdrop-blur border-l-4 border-amber-500 rounded-lg p-4 shadow-sm">
-            <div className="flex items-center gap-2 mb-3">
-              <BookOpen className="w-4 h-4 text-amber-700" />
-              <h4 className="text-xs font-bold text-amber-900 uppercase tracking-wide">
-                Source Citations
-              </h4>
-            </div>
-            <div className="space-y-2">
-              {message.pdf.citations.map((citation, idx) => (
-                <div key={idx} className="flex gap-3 text-xs">
-                  <div className="flex-shrink-0">
-                    <span className="inline-flex items-center justify-center bg-amber-600 text-white rounded px-2 py-0.5 font-mono font-semibold text-[10px]">
-                      {citation.pages.length === 1
-                        ? `p. ${citation.pages[0]}`
-                        : `pp. ${citation.pages.join(", ")}`}
-                    </span>
-                  </div>
-                  <p className="text-amber-900/90 leading-relaxed flex-1">
-                    {citation.text}
-                  </p>
-                </div>
-              ))}
-            </div>
+      {/* Citation Evidence Box */}
+      {!isUser && citationContent && message.pdf && (
+        <a
+          href={`${message.pdf.link}#page=${citationPage || 1}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-12 w-fit max-w-[85%] group flex flex-col gap-2 bg-secondary/5 border-l-4 border-secondary/40 rounded-r-xl p-4 shadow-sm hover:bg-secondary/10 transition-all cursor-pointer active:scale-[0.99]"
+        >
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-secondary" />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-secondary/70">
+              Reference Evidence
+            </span>
           </div>
-        )}
+          <p className="text-xs italic text-muted-foreground line-clamp-3 leading-relaxed">
+            {citationContent}
+          </p>
+          <div className="flex items-center gap-1 text-[10px] font-medium text-secondary/80 mt-1">
+            <span>
+              Click to view {citationPage ? `Page ${citationPage}` : "Document"}
+            </span>
+            <ExternalLink className="w-3 h-3" />
+          </div>
+        </a>
+      )}
 
-      {/* PDF Attachment Bubble */}
+      {/* PDF Attachment Bubble (General Link) */}
       {!isUser && message.pdf && (
         <a
           href={message.pdf.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-12 group flex items-center gap-4 bg-white/80 backdrop-blur border border-secondary/30 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-secondary transition-all max-w-[80%] cursor-pointer active:scale-[0.98]"
+          className="ml-12 group flex items-center gap-4 bg-white/80 backdrop-blur border border-border/40 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-secondary transition-all max-w-[80%] cursor-pointer"
         >
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-primary truncate group-hover:text-secondary transition-colors">
               {message.pdf.title}
             </p>
             <p className="text-[10px] text-muted-foreground line-clamp-1">
-              {message.pdf.description}
+              Source Document
             </p>
           </div>
           <div className="bg-red-50 text-red-600 p-2 rounded-lg group-hover:bg-red-100 transition-colors">
             <FileText className="w-5 h-5" />
           </div>
-          <ExternalLink className="w-3 h-3 text-muted-foreground group-hover:text-primary transition-colors" />
         </a>
       )}
     </div>

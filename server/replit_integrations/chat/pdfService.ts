@@ -6,7 +6,7 @@ const openai = new OpenAI({
 });
 
 const CRAWLER_API_URL =
-    "https://sahabat-fiqh-crawler-34o7etaj1-taufiqqqs-projects.vercel.app/scrape/bnm?x-vercel-protection-bypass=Jn2rmGmvjnTDCpQ9dlTfepiHN7ozFUoq";
+    "https://sahabat-fiqh-crawler.vercel.app/scrape/bnm?x-vercel-protection-bypass=Jn2rmGmvjnTDCpQ9dlTfepiHN7ozFUoq";
 
 interface ScriptDocument {
     title: string;
@@ -121,55 +121,61 @@ Respond in this exact JSON format:
     }
 }
 
+const PDF_FETCH_PROXY_URL =
+    "https://sahabat-fiqh-crawler.vercel.app/fetch?x-vercel-protection-bypass=Jn2rmGmvjnTDCpQ9dlTfepiHN7ozFUoq";
+
 /**
- * Fetches PDF from URL and extracts text content with page information
+ * Fetches PDF from URL using a Puppeteer-based proxy and extracts text content
  */
 export async function extractPdfText(
     pdfUrl: string,
 ): Promise<{ fullText: string; pages: PdfPageContent[] }> {
     try {
-        const response = await fetch(pdfUrl, {
-            headers: {
-                "User-Agent":
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                Accept: "application/pdf,application/octet-stream,*/*",
-                "Accept-Language": "en-US,en;q=0.9",
-                Referer: "https://www.bnm.gov.my/",
-                "Cache-Control": "no-cache",
-            },
-        });
+        console.log(`Fetching PDF via proxy: ${pdfUrl}`);
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 60000);
+
+        const response = await fetch(
+            `${PDF_FETCH_PROXY_URL}&url=${encodeURIComponent(pdfUrl)}`,
+            { signal: controller.signal },
+        );
+
+        clearTimeout(timeoutId);
+
         if (!response.ok) {
-            throw new Error(`Failed to fetch PDF: ${response.statusText}`);
+            throw new Error(
+                `Failed to fetch PDF: ${response.status} ${response.statusText}`,
+            );
         }
 
-        const arrayBuffer = await response.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.includes("pdf")) {
+            throw new Error(`Proxy did not return PDF (${contentType})`);
+        }
 
-        const pdf = await import("pdf-parse");
-        const parse =
-            typeof pdf === "function" ? pdf : (pdf as any).default || pdf;
-        const data = await parse(buffer);
+        const buffer = Buffer.from(await response.arrayBuffer());
 
-        // Extract page-by-page content
+        if (buffer.length === 0) {
+            throw new Error("Fetched PDF is empty");
+        }
+
+        // ✅ ESM-safe import
+        const pdfParse = (await import("pdf-parse")).default;
+
+        const data = await pdfParse(buffer);
+
         const pages: PdfPageContent[] = [];
-        if (data.text) {
-            // Simple heuristic: split by form feed or estimate based on character count
-            // Note: pdf-parse doesn't provide per-page text by default, so we approximate
-            const pageBreaks = data.text.split("\f"); // Form feed character often indicates page breaks
-            pageBreaks.forEach((pageText, index) => {
-                if (pageText.trim()) {
-                    pages.push({
-                        pageNumber: index + 1,
-                        text: pageText.trim(),
-                    });
-                }
-            });
-        }
+        data.text.split("\f").forEach((text, i) => {
+            const clean = text.trim();
+            if (clean) {
+                pages.push({ pageNumber: i + 1, text: clean });
+            }
+        });
 
         return {
             fullText: data.text,
-            pages:
-                pages.length > 0 ? pages : [{ pageNumber: 1, text: data.text }],
+            pages: pages.length ? pages : [{ pageNumber: 1, text: data.text }],
         };
     } catch (error) {
         console.error("Error extracting PDF text:", error);
@@ -178,44 +184,29 @@ export async function extractPdfText(
 }
 
 /**
- * Creates an enhanced system prompt with PDF context and citation instructions
+ * Creates an enhanced system prompt with Triple-Page context and rich citation instructions
+ * Merges the user's preferred formatting with new RAG requirements.
  */
 export function createPdfContextPrompt(
-    pdfContent: string,
+    contextText: string,
     documentTitle: string,
-    pages: PdfPageContent[],
 ): string {
-    // Create a page reference guide
-    const pageGuide = pages
-        .slice(0, 50)
-        .map((p) => `Page ${p.pageNumber}: ${p.text.substring(0, 200)}...`)
-        .join("\n\n");
-
-    return `You are an AI assistant focused on Islamic banking and Malaysian financial regulations.
+    return `You are SahabatFiqh, an expert AI assistant focused on Islamic banking and Malaysian financial regulations. 
 
 IMPORTANT CONTEXT:
-The user's question is related to "${documentTitle}". I have retrieved the full document content for you.
+The user's query is related to the BNM document: "${documentTitle}". 
+I have retrieved a "Triple-Page" context from this document (the most relevant page and its immediate preceding and succeeding pages) to ensure you have complete information.
 
 STRICT INSTRUCTIONS:
-1. You MUST use the document content below as your PRIMARY reference
-2. Base your answer STRICTLY on the information in this document
-3. When you reference specific information, you MUST include a citation marker in this format: [Page X]
-4. Place [Page X] citations immediately after the relevant sentence or claim
-5. If you reference multiple pages, use [Page X, Y, Z]
-6. At the end of your response, include a section with:
-   ---CITATIONS---
-   - Page X: Brief quote or reference to what was cited
-   - Page Y: Brief quote or reference to what was cited
-7. If the document doesn't contain the answer, clearly state that
-8. Keep your response concise and structured. Do not exceed 800 words to avoid being cut off.
+1. Answer the user's question clearly, respectfully, and conversationally based ONLY on the provided document text.
+2. If the document doesn't contain the answer, explicitly state that you couldn't find specific information in this document.
+3. CRUCIAL: You MUST provide specific evidence for your answer. At the VERY END of your response, provide the evidence wrapped in a <cite> tag.
+4. FORMAT FOR CITATION:
+   <cite> [${documentTitle}, Page X]: "The exact sentence or paragraph from the PDF used as evidence" </cite>
+5. Only cite the MOST relevant page number (this is the page that directly answers the query).
 
-PAGE REFERENCE GUIDE (First 50 pages):
-${pageGuide}
+TRIPLE-PAGE DOCUMENT CONTEXT:
+${contextText}
 
-FULL DOCUMENT CONTENT:
-${pdfContent.substring(0, 50000)} 
-
-${pdfContent.length > 50000 ? "\n[Document truncated due to length...]" : ""}
-
-Now answer the user's question based ONLY on this document, with proper page citations.`;
+Now, provide a helpful and accurate answer based on the document, followed by the mandatory <cite> block.`;
 }
