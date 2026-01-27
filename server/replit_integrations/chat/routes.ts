@@ -6,7 +6,6 @@ import {
   extractPdfText,
   createPdfContextPrompt,
 } from "./pdfService";
-import { vectorService } from "./vectorService";
 
 const openai = new OpenAI({
   apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
@@ -74,6 +73,7 @@ export function registerChatRoutes(app: Express): void {
 
         const messages =
           await chatStorage.getMessagesByConversation(conversationId);
+
         const chatMessages = messages.map((m) => ({
           role: m.role as "user" | "assistant" | "system",
           content: m.content,
@@ -84,44 +84,84 @@ export function registerChatRoutes(app: Express): void {
         let systemPrompt =
           "You are a helpful AI assistant. You provide knowledgeable, respectful, and accurate information. Your tone is polite and warm. Keep your response concise and structured.";
 
-        let pdfData = null;
+        let pdfData: any = null;
 
         if (relevanceCheck.isRelevant && relevanceCheck.selectedDocument) {
           try {
             const pdfUrl = relevanceCheck.selectedDocument.url;
             const documentTitle = relevanceCheck.selectedDocument.title;
 
-            // 1. Index if not done
-            const isIndexed = await vectorService.isIndexed(pdfUrl);
-            if (!isIndexed) {
-              console.log(`Indexing: ${documentTitle}`);
-              const { pages } = await extractPdfText(pdfUrl);
-              await vectorService.upsertPdfPages(pdfUrl, pages);
+            console.log("Fetching PDF:", documentTitle);
+
+            const { pages } = await extractPdfText(pdfUrl);
+
+            /* -------- STEP 1: TOC / EARLY PAGES ---------- */
+
+            const tocText = pages
+              .slice(0, 5)
+              .map((p) => `Page ${p.pageNumber}:\n${p.text}`)
+              .join("\n\n");
+
+            const tocPrompt = `
+You are reading the Table of Contents and early pages of a policy document.
+
+User question:
+"${content}"
+
+Based on the text below, which PAGE NUMBER is most likely to contain the answer?
+Reply ONLY in JSON:
+
+{ "page": number, "reason": "short" }
+
+TEXT:
+${tocText}
+`;
+
+            const tocResp = await openai.chat.completions.create({
+              model: "gpt-4o-mini",
+              messages: [{ role: "user", content: tocPrompt }],
+              response_format: { type: "json_object" },
+              temperature: 0,
+            });
+
+            let pageNum = 1;
+
+            try {
+              const parsed = JSON.parse(
+                tocResp.choices[0].message.content || "{}",
+              );
+              if (parsed.page && typeof parsed.page === "number") {
+                pageNum = parsed.page;
+              }
+            } catch {
+              console.warn("TOC parse failed, fallback page 1");
             }
 
-            // 2. Search for 3-page context
-            const searchResult = await vectorService.searchRelevantPages(
-              content,
-              pdfUrl,
+            /* -------- STEP 2: MULTI-PAGE CONTEXT ---------- */
+
+            const WINDOW = 3;
+
+            const targetPages = pages.filter(
+              (p) => p.pageNumber >= pageNum && p.pageNumber < pageNum + WINDOW,
             );
 
-            if (searchResult) {
-              systemPrompt = createPdfContextPrompt(
-                searchResult.contextText,
-                documentTitle,
-              );
-              pdfData = {
-                title: documentTitle,
-                link: pdfUrl,
-                description:
-                  relevanceCheck.reasoning || "Related BNM Policy Document",
-                page: searchResult.bestPageNumber,
-              };
-            }
+            const contextText = targetPages
+              .map((p) => `Page ${p.pageNumber}:\n${p.text}`)
+              .join("\n\n");
+
+            systemPrompt = createPdfContextPrompt(contextText, documentTitle);
+
+            pdfData = {
+              title: documentTitle,
+              link: pdfUrl,
+              description:
+                relevanceCheck.reasoning || "Related BNM Policy Document",
+              page: pageNum,
+            };
           } catch (pdfError) {
-            console.error("Error with Triple-Page RAG:", pdfError);
+            console.error("PDF pipeline error:", pdfError);
             systemPrompt +=
-              "\n\nNote: I found a relevant document but am answering based on general knowledge due to a retrieval error.";
+              "\n\nNote: I found a relevant document but could not retrieve the specific section, so I am answering based on general knowledge.";
           }
         }
 
@@ -144,10 +184,10 @@ export function registerChatRoutes(app: Express): void {
         let fullResponse = "";
 
         for await (const chunk of stream) {
-          const content = chunk.choices[0]?.delta?.content || "";
-          if (content) {
-            fullResponse += content;
-            res.write(`data: ${JSON.stringify({ content })}\n\n`);
+          const delta = chunk.choices[0]?.delta?.content || "";
+          if (delta) {
+            fullResponse += delta;
+            res.write(`data: ${JSON.stringify({ content: delta })}\n\n`);
           }
         }
 
